@@ -71,8 +71,9 @@
                     <button type="button" class="close" data-dismiss="modal"><span>×</span>
                     </button>
                 </div>
-                <form action="" method="post">
+                <form action="{{ route('tambah_user') }}" method="post">
                     <div class="modal-body">
+                        @csrf
                         <div class="basic-form">
     
                             <div class="form-group row">
@@ -134,8 +135,9 @@
                     <button type="button" class="close" data-dismiss="modal"><span>×</span>
                     </button>
                 </div>
-                <form action="" method="post">
+                <form action="{{ route('edit_user') }}" method="post">
                     <div class="modal-body">
+                        @csrf
                         <div class="basic-form">
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Nama</label>
@@ -180,4 +182,9 @@
             </div>
         </div>
     </div>    
+    <div class="d-none">
+        <form id="global_form" action="{{ route('delete_user') }}" method="post">
+            @csrf
+        </form>
+    </div>
 </x-layout>

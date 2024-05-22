@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard', ['title' => 'Dashboard']);
-});
-Route::get('/user', function () {
-    return view('users', ['title' => 'Daftar User', 'users' => User::all()]);
-});
+})->name('base');
+
+Route::get('/user', [User::class, 'show']);
+
+Route::post('user/tambah', [User::class, 'store'])->name('tambah_user');
+Route::post('user/edit', [User::class, 'update'])->name('edit_user');
+Route::post('user/hapus', [User::class, 'delete'])->name('delete_user');
