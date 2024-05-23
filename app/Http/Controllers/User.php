@@ -42,6 +42,16 @@ class User extends Controller
         return redirect('/user');
     }
     
+    public function reset(Request $req){
+        foreach($req->id_user as $id){
+            $user = ModelsUser::find($id);
+            $user->password = md5('12345678');
+            $user->save();
+        }
+
+        return redirect('/user');
+    }
+    
     public function delete(Request $req){
         ModelsUser::destroy($req->id_user);
         return redirect('/user');

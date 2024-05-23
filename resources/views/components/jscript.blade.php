@@ -62,6 +62,17 @@
         $(".batal-btn").css("display", "inline-block");
         $(".tambah-btn").css("display", "none");
         $(".cck-btn").css("display", "none");
+        $('tbody tr').each(function (i, tr) {
+            $(tr).addClass('c-pointer');
+            $(tr).on("click", function () {
+                var inp = $(tr).find('input');
+                $(inp).prop('checked', !$(inp).is(':checked'));
+                if(!edit){
+                    $(".ok-btn").css("display", "inline-block");
+                    $(".checkout-btn").css("display", "inline-block");
+                }
+            });
+        });
     }
     
     $('.hapus-btn').on("click", function () {
@@ -101,8 +112,8 @@
                     case 'layanan': layanan_edit_modal(tr); break;
                     default: user_edit_modal(tr); break;
                 };
-            })
-        })
+            });
+        });
     });
     $('.batal-btn').on("click", function () {
         hide_btn_menu();
@@ -111,6 +122,7 @@
         dlv = false;
         $('.ids').prop('checked', false);
         $('tbody tr').off("click");
+        $('tbody tr').removeClass('c-pointer');;
     });
     $('.batal-acc-btn').on("click", function () {
         $('.slc-acc').css("display", "none");

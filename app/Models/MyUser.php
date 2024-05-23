@@ -9,6 +9,4 @@ class MyUser extends Model
 {
     use HasFactory;
     protected $table = 'user';
-    protected $primaryKey = 'id_user';
-    public $timestaps = false;
 }

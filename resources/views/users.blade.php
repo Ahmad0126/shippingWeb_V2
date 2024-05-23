@@ -13,15 +13,15 @@
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target=".modal-tambah">Tambah</button>
                                 <button type="button" class="btn btn-primary tambah-btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false"></button>
                                 <div class="dropdown-menu" x-placement="bottom-start">
-                                    <a class="dropdown-item edit-btn" style="font-size: 0.875rem;" data-obj="user">
+                                    <a class="dropdown-item edit-btn c-pointer" style="font-size: 0.875rem;" data-obj="user">
                                         <i class="fa fa-pencil text-primary m-r-5"></i>
                                         Edit User
                                     </a> 
-                                    <a class="dropdown-item hapus-btn" style="font-size: 0.875rem;">
+                                    <a class="dropdown-item hapus-btn c-pointer" style="font-size: 0.875rem;">
                                         <i class="fa fa-trash text-danger m-r-5"></i>
                                         Hapus User
                                     </a> 
-                                    <a class="dropdown-item reset-btn" style="font-size: 0.875rem;">
+                                    <a class="dropdown-item reset-btn c-pointer" style="font-size: 0.875rem;">
                                         <i class="fa fa-refresh text-warning m-r-5"></i>
                                         Reset PW User
                                     </a>
@@ -46,7 +46,7 @@
                                 @php $n=1 @endphp  
                                 @foreach ($users as $u)
                                 <tr>
-                                    <td class="pilihan" style="display: none;"><input class="ids" type="checkbox" value="{{ $u['id_user'] }}"></td>
+                                    <td class="pilihan" style="display: none;"><input class="ids" type="checkbox" value="{{ $u['id'] }}"></td>
                                     <td>{{ $n++ }}</td>
                                     <td>{{ $u['username'] }}</td>
                                     <td class="nama">{{ $u['nama'] }}</td>

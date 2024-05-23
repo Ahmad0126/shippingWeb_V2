@@ -18,8 +18,9 @@ Route::get('/', function () {
     return view('dashboard', ['title' => 'Dashboard']);
 })->name('base');
 
-Route::get('/user', [User::class, 'show']);
+Route::get('/user', [User::class, 'show'])->name('user');
 
 Route::post('user/tambah', [User::class, 'store'])->name('tambah_user');
 Route::post('user/edit', [User::class, 'update'])->name('edit_user');
 Route::post('user/hapus', [User::class, 'delete'])->name('delete_user');
+Route::post('user/reset', [User::class, 'reset']);
