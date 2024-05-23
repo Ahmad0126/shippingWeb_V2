@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Logins;
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard', ['title' => 'Dashboard']);
-})->name('base');
+})->name('base')->middleware('auth');
 
 Route::get('/user', [User::class, 'show'])->name('user');
 
@@ -24,3 +25,7 @@ Route::post('user/tambah', [User::class, 'store'])->name('tambah_user');
 Route::post('user/edit', [User::class, 'update'])->name('edit_user');
 Route::post('user/hapus', [User::class, 'delete'])->name('delete_user');
 Route::post('user/reset', [User::class, 'reset']);
+
+Route::get('/login', [Logins::class, 'login_index'])->name('login')->middleware('guest');
+Route::post('/login', [Logins::class, 'auth_user'])->name('login_user');
+Route::post('/logout', [Logins::class, 'logout'])->name('logout');

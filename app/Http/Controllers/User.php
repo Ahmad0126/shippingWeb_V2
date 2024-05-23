@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MyUser as ModelsUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Controller
 {
@@ -19,7 +20,7 @@ class User extends Controller
         
         $user->username = $req->username;
         $user->nama = $req->nama;
-        $user->password = md5($req->password);
+        $user->password = Hash::make($req->password);
         $user->level = $req->level;
         $user->kota = $req->kota;
         $user->telp = $req->telp;
@@ -45,7 +46,7 @@ class User extends Controller
     public function reset(Request $req){
         foreach($req->id_user as $id){
             $user = ModelsUser::find($id);
-            $user->password = md5('12345678');
+            $user->password = Hash::make('12345678');
             $user->save();
         }
 

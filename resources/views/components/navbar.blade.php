@@ -47,7 +47,14 @@
                                     <a href="{{ route('base') }}"><i class="icon-user"></i> <span>Masuk Kantor</span></a>
                                 </li>
                                 <hr class="my-2">
-                                <li><a href="{{ route('base') }}"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="nav-link">
+                                            <i class="icon-key"></i> <span>Logout</span>
+                                        </button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>
