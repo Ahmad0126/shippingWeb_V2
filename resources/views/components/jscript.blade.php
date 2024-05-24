@@ -4,9 +4,29 @@
 <script src="js/gleek.js"></script>
 <script src="js/styleSwitcher.js"></script>
 <script src="plugins/sweetalert/js/sweetalert.min.js"></script>
-<?php //if($this->session->flashdata('alert') != null){
-    //echo $this->session->flashdata('alert');
-//} ?>
+@if ($notif = Session::get('notif'))
+<script>
+    $(document).ready(function(){
+        swal({
+            type: "success",
+            title: "OK",
+            text: "{{ $notif }}",
+            timer: 4e3
+        });
+    });
+</script>
+@endif
+@if ($errors->any())
+<script>
+    $(document).ready(function(){
+        swal({
+            type: "error",
+            title: "GAGAL",
+            timer: 4e3
+        });
+    });
+</script>
+@endif
 <script>
     var base_url = "{{ route('base') }}";
     function cabang_edit_modal(row) {

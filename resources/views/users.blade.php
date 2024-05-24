@@ -4,6 +4,19 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
+                    @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show notifikasi" role="alert">
+                        @foreach ($errors->all() as $e)
+                        <p>
+                            <span class="alert-icon"><i class="fa fa-exclamation"></i></span>
+                            <span class="alert-text">{{ $e }}</span>
+                        </p>
+                        @endforeach
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    @endif
                     <div class="card-title d-flex justify-content-between">
                         <h4>Daftar User</h4>
                         <span>

@@ -33,7 +33,7 @@
         <div class="header-right">
             <ul class="clearfix">
                 <li class="icons dropdown c-pointer d-none d-md-flex" data-toggle="dropdown">
-                    <p>NamaMu</p>
+                    <p>{{ Auth::user()->nama }}</p>
                 </li>
                 <li class="icons dropdown">
                     <div class="user-img c-pointer position-relative" data-toggle="dropdown">
@@ -50,8 +50,8 @@
                                 <li>
                                     <form action="{{ route('logout') }}" method="post">
                                         @csrf
-                                        <button type="submit" class="nav-link">
-                                            <i class="icon-key"></i> <span>Logout</span>
+                                        <button type="submit" class="border-0 p-0 bg-transparent c-pointer">
+                                            <i class="icon-key mr-1"></i> <span>Logout</span>
                                         </button>
                                     </form>
                                 </li>
