@@ -14,12 +14,12 @@
             </li>
             <li class="nav-label">Inventaris</li>
             <li>
-                <a href="{{ route('base') }}" aria-expanded="false">
+                <a href="{{ route('cabang') }}" aria-expanded="false">
                     <i class="icon-share menu-icon"></i><span class="nav-text">Cabang</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('base') }}" aria-expanded="false">
+                <a href="{{ route('layanan') }}" aria-expanded="false">
                     <i class="icon-tag menu-icon"></i><span class="nav-text">Layanan</span>
                 </a>
             </li>

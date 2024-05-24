@@ -21,7 +21,7 @@ class User extends Controller
             'password' => 'required|min:4',
             'level' => 'required',
             'kota' => 'required|max:30',
-            'telp' => 'nullable|numeric|max:15'
+            'telp' => 'nullable|numeric|max_digits:15'
         ]);
 
         $user = new ModelsUser();
@@ -42,7 +42,7 @@ class User extends Controller
             'nama' => 'required|max:60',
             'level' => 'required',
             'kota' => 'required|max:30',
-            'telp' => 'nullable|numeric|max:15'
+            'telp' => 'nullable|numeric|max_digits:15'
         ]);
 
         $user = ModelsUser::find($req->id_user);

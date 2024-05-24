@@ -18,7 +18,7 @@
                     </div>
                     @endif
                     <div class="card-title d-flex justify-content-between">
-                        <h4>Daftar User</h4>
+                        <h4>Daftar Cabang</h4>
                         <span>
                             <button class="btn btn-secondary batal-btn" style="display: none;">Batal</button>
                             <button class="btn btn-success ok-btn" style="display: none;">OK</button>
@@ -26,17 +26,13 @@
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target=".modal-tambah">Tambah</button>
                                 <button type="button" class="btn btn-primary tambah-btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false"></button>
                                 <div class="dropdown-menu" x-placement="bottom-start">
-                                    <a class="dropdown-item edit-btn c-pointer" style="font-size: 0.875rem;" data-obj="user">
+                                    <a class="dropdown-item edit-btn c-pointer" style="font-size: 0.875rem;" data-obj="cabang">
                                         <i class="fa fa-pencil text-primary m-r-5"></i>
-                                        Edit User
+                                        Edit Cabang
                                     </a> 
                                     <a class="dropdown-item hapus-btn c-pointer" style="font-size: 0.875rem;">
                                         <i class="fa fa-trash text-danger m-r-5"></i>
-                                        Hapus User
-                                    </a> 
-                                    <a class="dropdown-item reset-btn c-pointer" style="font-size: 0.875rem;">
-                                        <i class="fa fa-refresh text-warning m-r-5"></i>
-                                        Reset PW User
+                                        Hapus Cabang
                                     </a>
                                 </div>
                             </div>
@@ -48,27 +44,26 @@
                                 <tr class="head">
                                     <th class="pilihan" style="display: none;">Pilih</th>
                                     <th>#</th>
-                                    <th>Username</th>
-                                    <th>Nama</th>
-                                    <th>Status</th>
-                                    <th>Domisili</th>
-                                    <th>No Telp</th>
+                                    <th>Kode Cabang</th>
+                                    <th>Fasilitas</th>
+                                    <th>Kota</th>
+                                    <th>Kode Pos</th>
+                                    <th>Alamat</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $n=1 @endphp  
-                                @foreach ($users as $u)
+                            @php $n=1; @endphp
+                            @foreach($cabang as $c)
                                 <tr>
-                                    <td class="pilihan" style="display: none;"><input class="ids" type="checkbox" value="{{ $u['id'] }}"></td>
+                                <td class="pilihan" style="display: none;"><input class="ids" type="checkbox" value="{{ $c['id'] }}"></td>
                                     <td>{{ $n++ }}</td>
-                                    <td>{{ $u['username'] }}</td>
-                                    <td class="nama">{{ $u['nama'] }}</td>
-                                    <td class="level">{{ $u['level'] }}</td>
-                                    <td class="kota">{{ $u['kota'] }}</td>
-                                    <td class="telp">{{ $u['telp'] }}</td>
-                                    <td>
+                                    <td>{{ $c['kode_cabang'] }}</td>
+                                    <td class="fasilitas">{{ $c['fasilitas'] }}</td>
+                                    <td class="kota">{{ $c['kota'] }}</td>
+                                    <td class="kode_pos">{{ $c['kode_pos'] }}</td>
+                                    <td class="alamat">{{ $c['alamat'] }}</td>
                                 </tr>
-                                @endforeach
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -80,54 +75,41 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tambahkan User</h5>
+                    <h5 class="modal-title">Tambahkan Cabang</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>×</span>
                     </button>
                 </div>
-                <form action="{{ route('tambah_user') }}" method="post">
+                <form action="{{ route('tambah_cabang') }}" method="post">
+                    @csrf
                     <div class="modal-body">
-                        @csrf
                         <div class="basic-form">
-    
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Username</label>
+                                <label class="col-sm-2 col-form-label">Fasilitas</label>
                                 <div class="col-sm-10">
-                                    <input name="username" type="text" class="form-control" placeholder="Buat Username" value="{{ old('username') }}">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Password</label>
-                                <div class="col-sm-10">
-                                    <input name="password" type="password" class="form-control" placeholder="Buat Password">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Nama</label>
-                                <div class="col-sm-10">
-                                    <input name="nama" type="text" class="form-control" placeholder="Masukkan Nama" value="{{ old('nama') }}">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Status</label>
-                                <div class="col-sm-10">
-                                    <select name="level" class="custom-select mr-sm-2">
-                                        <option value="Admin">Admin</option>
-                                        <option value="Kasir">Kasir</option>
-                                        <option value="Officer">Officer</option>
-                                        <option value="Kurir">Kurir</option>
+                                    <select name="fasilitas" class="custom-select mr-sm-2">
+                                        <option value="Warehouse">Warehouse</option>
+                                        <option value="Office">Office</option>
+                                        <option value="Sorting Center">Sorting Center</option>
+                                        <option value="Gateway">Gateway</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Domisili</label>
+                                <label class="col-sm-2 col-form-label">Kode Pos</label>
                                 <div class="col-sm-10">
-                                    <input name="kota" type="text" class="form-control" placeholder="Masukkan Kota" value="{{ old('kota') }}">
+                                    <input name="kode_pos" type="number" class="form-control" placeholder="Masukkan Kode Pos">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">No Telp</label>
+                                <label class="col-sm-2 col-form-label">Kota</label>
                                 <div class="col-sm-10">
-                                    <input name="telp" type="number" class="form-control" placeholder="Masukkan No Telp" value="{{ old('telp') }}">
+                                    <input name="kota" type="text" class="form-control" placeholder="Masukkan Kota">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Alamat</label>
+                                <div class="col-sm-10">
+                                    <input name="alamat" type="text" class="form-control" placeholder="Masukkan Alamat">
                                 </div>
                             </div>
                         </div>
@@ -144,45 +126,42 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit User</h5>
+                    <h5 class="modal-title">Edit Cabang</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>×</span>
                     </button>
                 </div>
-                <form action="{{ route('edit_user') }}" method="post">
+                <form action="{{ route('edit_cabang') }}" method="post">
+                    @csrf
                     <div class="modal-body">
-                        @csrf
                         <div class="basic-form">
+                            <input name="id_cabang" id="id" type="hidden">
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Nama</label>
+                                <label class="col-sm-2 col-form-label">Fasilitas</label>
                                 <div class="col-sm-10">
-                                    <input name="nama" id="nama" type="text" class="form-control"
-                                        placeholder="Masukkan Nama">
-                                    <input name="id_user" id="id" type="hidden">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Status</label>
-                                <div class="col-sm-10">
-                                    <select name="level" id="level" class="custom-select mr-sm-2">
-                                        <option value="Admin">Admin</option>
-                                        <option value="Kasir">Kasir</option>
-                                        <option value="Officer">Officer</option>
-                                        <option value="Kurir">Kurir</option>
+                                    <select name="fasilitas" id="fasilitas" class="custom-select mr-sm-2">
+                                        <option value="Warehouse">Warehouse</option>
+                                        <option value="Office">Office</option>
+                                        <option value="Sorting Center">Sorting Center</option>
+                                        <option value="Gateway">Gateway</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Domisili</label>
+                                <label class="col-sm-2 col-form-label">Kode Pos</label>
                                 <div class="col-sm-10">
-                                    <input name="kota" id="kota" type="text" class="form-control"
-                                        placeholder="Masukkan Kota">
+                                    <input name="kode_pos" id="kode_pos" type="number" class="form-control" placeholder="Masukkan Kode Pos">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">No Telp</label>
+                                <label class="col-sm-2 col-form-label">Kota</label>
                                 <div class="col-sm-10">
-                                    <input name="telp" id="telp" type="number" class="form-control"
-                                        placeholder="Masukkan No Telp">
+                                    <input name="kota" id="kota" type="text" class="form-control" placeholder="Masukkan Kota">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Alamat</label>
+                                <div class="col-sm-10">
+                                    <input name="alamat" id="alamat" type="text" class="form-control" placeholder="Masukkan Alamat">
                                 </div>
                             </div>
                         </div>
@@ -196,7 +175,7 @@
         </div>
     </div>    
     <div class="d-none">
-        <form id="global_form" action="{{ route('delete_user') }}" method="post">
+        <form id="global_form" action="{{ route('delete_cabang') }}" method="post">
             @csrf
         </form>
     </div>

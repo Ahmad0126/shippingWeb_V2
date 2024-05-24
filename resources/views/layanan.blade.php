@@ -18,7 +18,7 @@
                     </div>
                     @endif
                     <div class="card-title d-flex justify-content-between">
-                        <h4>Daftar User</h4>
+                        <h4>Daftar Layanan</h4>
                         <span>
                             <button class="btn btn-secondary batal-btn" style="display: none;">Batal</button>
                             <button class="btn btn-success ok-btn" style="display: none;">OK</button>
@@ -26,17 +26,13 @@
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target=".modal-tambah">Tambah</button>
                                 <button type="button" class="btn btn-primary tambah-btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false"></button>
                                 <div class="dropdown-menu" x-placement="bottom-start">
-                                    <a class="dropdown-item edit-btn c-pointer" style="font-size: 0.875rem;" data-obj="user">
+                                    <a class="dropdown-item edit-btn c-pointer" style="font-size: 0.875rem;" data-obj="layanan">
                                         <i class="fa fa-pencil text-primary m-r-5"></i>
-                                        Edit User
+                                        Edit Layanan
                                     </a> 
                                     <a class="dropdown-item hapus-btn c-pointer" style="font-size: 0.875rem;">
                                         <i class="fa fa-trash text-danger m-r-5"></i>
-                                        Hapus User
-                                    </a> 
-                                    <a class="dropdown-item reset-btn c-pointer" style="font-size: 0.875rem;">
-                                        <i class="fa fa-refresh text-warning m-r-5"></i>
-                                        Reset PW User
+                                        Hapus Layanan
                                     </a>
                                 </div>
                             </div>
@@ -48,27 +44,24 @@
                                 <tr class="head">
                                     <th class="pilihan" style="display: none;">Pilih</th>
                                     <th>#</th>
-                                    <th>Username</th>
-                                    <th>Nama</th>
-                                    <th>Status</th>
-                                    <th>Domisili</th>
-                                    <th>No Telp</th>
+                                    <th>Nama Layanan</th>
+                                    <th>Kapasitas</th>
+                                    <th>Waktu</th>
+                                    <th>Biaya</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $n=1 @endphp  
-                                @foreach ($users as $u)
+                            @php $n=1; @endphp 
+                            @foreach($layanan as $l)
                                 <tr>
-                                    <td class="pilihan" style="display: none;"><input class="ids" type="checkbox" value="{{ $u['id'] }}"></td>
+                                    <td class="pilihan" style="display: none;"><input class="ids" type="checkbox" value="{{ $l['id'] }}"></td>
                                     <td>{{ $n++ }}</td>
-                                    <td>{{ $u['username'] }}</td>
-                                    <td class="nama">{{ $u['nama'] }}</td>
-                                    <td class="level">{{ $u['level'] }}</td>
-                                    <td class="kota">{{ $u['kota'] }}</td>
-                                    <td class="telp">{{ $u['telp'] }}</td>
-                                    <td>
+                                    <td class="nama">{{ $l['nama_layanan'] }}</td>
+                                    <td class="kapasitas" data-kapasitas="{{ $l['kapasitas'] }}">{{ $l['kapasitas'] }} Kg</td>
+                                    <td class="waktu" data-waktu="{{ $l['waktu'] }}">{{ $l['waktu'] }} Hari</td>
+                                    <td class="ongkir" data-ongkir="{{ $l['ongkir'] }}">Rp {{ number_format($l['ongkir']) }}</td>
                                 </tr>
-                                @endforeach
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -80,54 +73,51 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tambahkan User</h5>
+                    <h5 class="modal-title">Tambahkan Layanan</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>×</span>
                     </button>
                 </div>
-                <form action="{{ route('tambah_user') }}" method="post">
+                <form action="{{ route('tambah_layanan') }}" method="post">
+                    @csrf
                     <div class="modal-body">
-                        @csrf
                         <div class="basic-form">
-    
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Username</label>
+                                <label class="col-sm-2 col-form-label">Nama Layanan</label>
                                 <div class="col-sm-10">
-                                    <input name="username" type="text" class="form-control" placeholder="Buat Username" value="{{ old('username') }}">
+                                    <input name="nama_layanan" type="text" class="form-control" placeholder="Masukkan Nama Layanan" value="{{ old('nama_layanan') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Password</label>
+                                <label class="col-sm-2 col-form-label">Kapasitas</label>
                                 <div class="col-sm-10">
-                                    <input name="password" type="password" class="form-control" placeholder="Buat Password">
+                                    <div class="input-group">
+                                        <input name="kapasitas" type="number" class="form-control" placeholder="Masukkan Kapasitas" value="{{ old('kapasitas') }}">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Kg</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Nama</label>
+                                <label class="col-sm-2 col-form-label">Perkiraan Waktu</label>
                                 <div class="col-sm-10">
-                                    <input name="nama" type="text" class="form-control" placeholder="Masukkan Nama" value="{{ old('nama') }}">
+                                    <div class="input-group">
+                                        <input name="waktu" type="text" class="form-control" placeholder="3-5" value="{{ old('waktu') }}">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Hari</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Status</label>
+                                <label class="col-sm-2 col-form-label">Biaya</label>
                                 <div class="col-sm-10">
-                                    <select name="level" class="custom-select mr-sm-2">
-                                        <option value="Admin">Admin</option>
-                                        <option value="Kasir">Kasir</option>
-                                        <option value="Officer">Officer</option>
-                                        <option value="Kurir">Kurir</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Domisili</label>
-                                <div class="col-sm-10">
-                                    <input name="kota" type="text" class="form-control" placeholder="Masukkan Kota" value="{{ old('kota') }}">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">No Telp</label>
-                                <div class="col-sm-10">
-                                    <input name="telp" type="number" class="form-control" placeholder="Masukkan No Telp" value="{{ old('telp') }}">
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">Rp</div>
+                                        </div>
+                                        <input name="ongkir" type="number" class="form-control" placeholder="Masukkan Biaya" value="{{ old('ongkir') }}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -144,45 +134,52 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit User</h5>
+                    <h5 class="modal-title">Edit Layanan</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>×</span>
                     </button>
                 </div>
-                <form action="{{ route('edit_user') }}" method="post">
+                <form action="{{ route('edit_layanan') }}" method="post">
+                    @csrf
                     <div class="modal-body">
-                        @csrf
                         <div class="basic-form">
+                            <input name="id_layanan" id="id" type="hidden">
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Nama</label>
+                                <label class="col-sm-2 col-form-label">Nama Layanan</label>
                                 <div class="col-sm-10">
-                                    <input name="nama" id="nama" type="text" class="form-control"
-                                        placeholder="Masukkan Nama">
-                                    <input name="id_user" id="id" type="hidden">
+                                    <input name="nama_layanan" id="nama" type="text" class="form-control" placeholder="Masukkan Nama Layanan">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Status</label>
+                                <label class="col-sm-2 col-form-label">Kapasitas</label>
                                 <div class="col-sm-10">
-                                    <select name="level" id="level" class="custom-select mr-sm-2">
-                                        <option value="Admin">Admin</option>
-                                        <option value="Kasir">Kasir</option>
-                                        <option value="Officer">Officer</option>
-                                        <option value="Kurir">Kurir</option>
-                                    </select>
+                                    <div class="input-group">
+                                        <input name="kapasitas" id="kapasitas" type="number" class="form-control" placeholder="Masukkan Kapasitas">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Kg</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Domisili</label>
+                                <label class="col-sm-2 col-form-label">Perkiraan Waktu</label>
                                 <div class="col-sm-10">
-                                    <input name="kota" id="kota" type="text" class="form-control"
-                                        placeholder="Masukkan Kota">
+                                    <div class="input-group">
+                                        <input name="waktu" id="waktu" type="text" class="form-control" placeholder="3-5">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Hari</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">No Telp</label>
+                                <label class="col-sm-2 col-form-label">Biaya</label>
                                 <div class="col-sm-10">
-                                    <input name="telp" id="telp" type="number" class="form-control"
-                                        placeholder="Masukkan No Telp">
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">Rp</div>
+                                        </div>
+                                        <input name="ongkir" id="ongkir" type="number" class="form-control" placeholder="Masukkan Biaya">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +193,7 @@
         </div>
     </div>    
     <div class="d-none">
-        <form id="global_form" action="{{ route('delete_user') }}" method="post">
+        <form id="global_form" action="{{ route('delete_layanan') }}" method="post">
             @csrf
         </form>
     </div>
