@@ -18,10 +18,11 @@ return new class extends Migration
             );
             $table->dateTime('tanggal_dikirim');
             $table->string('nama_penerima', 60);
-            $table->string('no_hp_penerima', 20);
+            $table->string('no_hp_penerima', 20)->nullable();
             $table->string('deskripsi', 200);
             $table->integer('berat');
             $table->integer('koli');
+            $table->string('instruksi_khusus', 200)->nullable();
             $table->timestamps();
         });
     }

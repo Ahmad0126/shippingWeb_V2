@@ -14,10 +14,10 @@ class Pengiriman extends Model
     protected $table = 'pengiriman';
 
     public function nota():BelongsTo{
-        return $this->belongsTo(DetailPengiriman::class, 'no_nota');
+        return $this->belongsTo(Nota::class, 'id_nota');
     }
-    public function layanan():HasOne{
-        return $this->hasOne(Layanan::class, 'id_layanan');
+    public function layanan():BelongsTo{
+        return $this->belongsTo(Layanan::class, 'id_layanan');
     }
     public function histori():HasMany{
         return $this->hasMany(Histori::class, 'id_pengiriman');

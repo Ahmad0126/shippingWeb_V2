@@ -26,7 +26,7 @@
             
             <li class="nav-label">Pengiriman</li>
             <li>
-                <a href="{{ route('base') }}" aria-expanded="false">
+                <a href="{{ route('pengiriman') }}" aria-expanded="false">
                     <i class="icon-paper-plane menu-icon"></i><span class="nav-text">Pengiriman</span>
                 </a>
             </li>

@@ -1,9 +1,9 @@
-<script src="plugins/common/common.min.js"></script>
-<script src="js/custom.min.js"></script>
-<script src="js/settings.js"></script>
-<script src="js/gleek.js"></script>
-<script src="js/styleSwitcher.js"></script>
-<script src="plugins/sweetalert/js/sweetalert.min.js"></script>
+<script src="{{ asset('plugins/common/common.min.js') }}"></script>
+<script src="{{ asset('js/custom.min.js') }}"></script>
+<script src="{{ asset('js/settings.js') }}"></script>
+<script src="{{ asset('js/gleek.js') }}"></script>
+<script src="{{ asset('js/styleSwitcher.js') }}"></script>
+<script src="{{ asset('plugins/sweetalert/js/sweetalert.min.js') }}"></script>
 @if ($notif = Session::get('notif'))
 <script>
     $(document).ready(function(){

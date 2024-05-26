@@ -3,6 +3,7 @@
 use App\Http\Controllers\Cabang;
 use App\Http\Controllers\Layanan;
 use App\Http\Controllers\Logins;
+use App\Http\Controllers\Pengiriman;
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,11 @@ Route::middleware(['auth'])->group(function (){
     Route::post('layanan/tambah', [Layanan::class, 'store'])->name('tambah_layanan');
     Route::post('layanan/edit', [Layanan::class, 'update'])->name('edit_layanan');
     Route::post('layanan/hapus', [Layanan::class, 'delete'])->name('delete_layanan');
+    
+    Route::get('/pengiriman', [Pengiriman::class, 'show'])->name('pengiriman');
+    Route::get('/pengiriman/daftar', [Pengiriman::class, 'show'])->name('pengiriman_daftar');
+    Route::get('/pengiriman/detail', [Pengiriman::class, 'detail'])->name('pengiriman_detail');
+    Route::get('pengiriman/tambah', [Pengiriman::class, 'store'])->name('tambah_pengiriman');
 });
 
 Route::middleware(['guest'])->group(function(){

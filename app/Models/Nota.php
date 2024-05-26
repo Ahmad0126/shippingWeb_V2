@@ -12,6 +12,6 @@ class Nota extends Model
     protected $table = 'nota';
 
     public function pengiriman():HasMany {
-        return $this->hasMany(Pengiriman::class, 'id_pengiriman');
+        return $this->hasMany(Pengiriman::class, 'id_nota');
     }
 }
