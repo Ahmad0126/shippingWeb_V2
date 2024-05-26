@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('no_nota', 20);
             $table->string('nama_pengirim', 60);
             $table->string('alamat_pengirim', 200);
-            $table->string('no_hp_pengirim', 15);
+            $table->string('no_hp_pengirim', 20);
             $table->integer('total');
             $table->enum('pembayaran', ['Tunai', 'Kredit']);
             $table->timestamps();

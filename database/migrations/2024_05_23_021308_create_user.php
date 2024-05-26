@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('password', 60);
             $table->enum('level', ['Admin','Kasir','Officer','Kurir']);
             $table->string('nama', 60);
-            $table->string('telp', 15);
+            $table->string('telp', 20);
             $table->string('kota', 30);
             $table->timestamps();
         });

@@ -16,9 +16,13 @@ return new class extends Migration
             $table->string('kode_pengiriman', 20);
             $table->string('alamat_tujuan', 200);
             $table->integer('kode_pos');
-            $table->integer('id_layanan');
+            $table->foreignId('id_layanan')->constrained(
+                table: 'layanan', indexName: 'pengiriman_id_layanan_foreign'
+            );
             $table->integer('ongkir');
-            $table->string('no_nota', 20);
+            $table->foreignId('id_nota')->nullable()->constrained(
+                table: 'nota', indexName: 'pengiriman_id_nota_foreign'
+            );
             $table->string('estimasi', 5);
             $table->timestamps();
         });

@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Layanan extends Model
+class DetailPengiriman extends Model
 {
     use HasFactory;
-    protected $table = 'layanan';
+    protected $table = 'detail_pengiriman';
 
     public function pengiriman():BelongsTo{
-        return $this->belongsTo(Pengiriman::class, 'id_layanan');
+        return $this->belongsTo(Pengiriman::class, 'id_pengiriman');
     }
 }

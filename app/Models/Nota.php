@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Cabang extends Model
+class Nota extends Model
 {
     use HasFactory;
-    protected $table = 'cabang';
+    protected $table = 'nota';
 
-    public function histori():HasMany{
-        return $this->hasMany(Histori::class, 'id_cabang');
+    public function pengiriman():HasMany {
+        return $this->hasMany(Pengiriman::class, 'id_pengiriman');
     }
 }

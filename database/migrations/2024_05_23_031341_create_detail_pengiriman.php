@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('detail_pengiriman', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pengiriman', 20);
+            $table->foreignId('id_pengiriman')->constrained(
+                table: 'pengiriman', indexName: 'detail_pengiriman_id_pengiriman_foreign'
+            );
             $table->dateTime('tanggal_dikirim');
             $table->string('nama_penerima', 60);
-            $table->string('no_hp_penerima', 15);
+            $table->string('no_hp_penerima', 20);
             $table->string('deskripsi', 200);
             $table->integer('berat');
             $table->integer('koli');

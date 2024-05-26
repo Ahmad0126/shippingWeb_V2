@@ -13,12 +13,18 @@ return new class extends Migration
     {
         Schema::create('histori', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pengiriman', 20);
+            $table->foreignId('id_pengiriman')->constrained(
+                table: 'pengiriman', indexName: 'histori_id_pengiriman_foreign'
+            );
             $table->dateTime('tanggal');
             $table->string('deskripsi', 200);
             $table->enum('status', ['registered','checkout','forwarded','received_sort','received_origin','received_warehouse','delivery','delivered']);
-            $table->integer('id_user');
-            $table->string('kode_cabang', 20);
+            $table->foreignId('id_user')->constrained(
+                table: 'user', indexName: 'histori_id_user_foreign'
+            );
+            $table->foreignId('id_cabang')->constrained(
+                table: 'cabang', indexName: 'histori_id_cabang_foreign'
+            );
             $table->timestamps();
         });
     }
