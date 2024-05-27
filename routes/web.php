@@ -40,9 +40,9 @@ Route::middleware(['auth'])->group(function (){
     Route::post('layanan/hapus', [Layanan::class, 'delete'])->name('delete_layanan');
     
     Route::get('/pengiriman', [Pengiriman::class, 'show'])->name('pengiriman');
-    Route::get('/pengiriman/daftar', [Pengiriman::class, 'show'])->name('pengiriman_daftar');
+    Route::get('/pengiriman/daftar', [Pengiriman::class, 'daftar'])->name('pengiriman_daftar');
     Route::get('/pengiriman/detail', [Pengiriman::class, 'detail'])->name('pengiriman_detail');
-    Route::get('pengiriman/tambah', [Pengiriman::class, 'store'])->name('tambah_pengiriman');
+    Route::post('pengiriman/tambah', [Pengiriman::class, 'store'])->name('tambah_pengiriman');
 });
 
 Route::middleware(['guest'])->group(function(){
