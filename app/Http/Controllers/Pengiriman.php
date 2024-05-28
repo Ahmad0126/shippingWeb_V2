@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Pengiriman as ModelPengiriman;
+use Illuminate\Support\Facades\Gate;
 
 class Pengiriman extends Controller
 {
@@ -23,6 +24,9 @@ class Pengiriman extends Controller
         return view('pengiriman_detail', $data);
     }
     public function daftar(){
+        if(!Gate::allows('kantor')){
+            return redirect(route('login_kantor'))->withErrors(['err_kantor' => 'Masuk ke kantor Office dahulu!']);
+        }
         $data['title'] = 'Pendaftaran Pengiriman';
         $data['layanan'] = Layanan::all();
         return view('pengiriman_daftar', $data);
@@ -67,7 +71,7 @@ class Pengiriman extends Controller
         $histori->deskripsi = 'Telah terdaftar di kantor';
         $histori->status = 'registered';
         $histori->id_user = auth()->user()->id;
-        $histori->id_cabang = 1;
+        $histori->id_cabang = session('kantor')->id;
         $histori->save();
 
         return redirect()->route('pengiriman_daftar')->with('notif', 'Berhasil menambahkan pengiriman');
