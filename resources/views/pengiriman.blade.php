@@ -44,6 +44,7 @@
                             <tbody>
                                 <form id="chot_pngrmn" action="{{ route('tambah_pengiriman') }}" method="get">
                                     @php $n=1 @endphp
+                                    @if ($pengiriman != null)
                                     @foreach($pengiriman as $p)
                                     <tr>
                                         <td class="pilihan" style="display: none;">
@@ -65,6 +66,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @endif
                                 </form>
                             </tbody>
                         </table>

@@ -7,7 +7,7 @@
 					Pengiriman <strong>{{ $pengiriman->kode_pengiriman }}</strong>
 				</span>
 				<span>
-					<strong>Status:</strong> {{ ucfirst($pengiriman->status) }}
+					<strong>Status:</strong> {{ ucfirst($pengiriman->histori->last()->status) }}
 				</span>
 			</div>
 			<hr class="m-0">
@@ -16,10 +16,10 @@
 					<div class="col-sm-6">
 						<h6 class="mb-3">Pengirim:</h6>
 						<div>
-							<strong>{{ $pengiriman->nota->nama_pengirim }}</strong>
+							<strong>@if($pengiriman->nota != null) {{ $pengiriman->nota->nama_pengirim }}@endif</strong>
 						</div>
-						<div>{{ $pengiriman->nota->alamat_pengirim }}</div>
-						<div>No HP: {{ $pengiriman->nota->no_hp_pengirim }}</div>
+						<div>@if($pengiriman->nota != null) {{ $pengiriman->nota->alamat_pengirim }} @endif</div>
+						<div>No HP: @if($pengiriman->nota != null) {{ $pengiriman->nota->no_hp_pengirim }} @endif</div>
 					</div>
 					<div class="col-sm-6">
 						<h6 class="mb-3">Penerima:</h6>
@@ -31,6 +31,7 @@
 					</div>
 				</div>
 				<div class="table-responsive-sm">
+					<h4>Histori Status</h4>
 					<table class="table table-striped">
 						<thead>
 							<th>#</th>
@@ -39,6 +40,16 @@
 							<th>Kantor</th>
 							<th>Deskripsi</th>
 						</thead>
+						@php $n=1 @endphp
+						@foreach($pengiriman->histori as $h)
+							<tr>
+								<td class="center">{{ $n++ }}</td>
+								<td class="left strong">{{ $h->tanggal }}</td>
+								<td class="left">{{ ucfirst($h->status) }}</td>
+								<td class="right">{{ $h->cabang->fasilitas.' '.$h->cabang->kota }}</td>
+								<td class="center">{{ $h->deskripsi }}</td>
+							</tr>
+						@endforeach
 					</table>
 				</div>
 				<div class="row">
@@ -104,15 +115,15 @@
 							</tr>
 							<tr>
 								<td><strong>Biaya</strong></td>
-								<td>Rp {{ number_format($pengiriman->nota->ongkir) }}</td>
+								<td>Rp @if($pengiriman->nota != null) {{ number_format($pengiriman->nota->ongkir) }} @endif</td>
 							</tr>
 							<tr>
 								<td><strong>Pembayaran</strong></td>
-								<td>{{ $pengiriman->nota->pembayaran }}</td>
+								<td>@if($pengiriman->nota != null) {{ $pengiriman->nota->pembayaran }} @endif</td>
 							</tr>
 							<tr>
 								<td><strong>Nota Terkait</strong></td>
-								<td><a href="pengiriman/nota?p={{ $pengiriman->nota->no_nota }}">{{ $pengiriman->nota->no_nota }}</a></td>
+								<td>@if($pengiriman->nota != null) <a href="pengiriman/nota?p={{ $pengiriman->nota->no_nota }}"> {{ $pengiriman->nota->no_nota }} @endif</a></td>
 							</tr>
 						</table>
 					</div>
