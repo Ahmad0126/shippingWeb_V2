@@ -44,7 +44,7 @@
                         <div class="dropdown-content-body">
                             <ul>
                                 <li>
-                                    <a href="{{ route('base') }}"><i class="icon-user"></i> <span>Masuk Kantor</span></a>
+                                    <a href="{{ route('login_kantor') }}"><i class="icon-user"></i> <span>Masuk Kantor</span></a>
                                 </li>
                                 <hr class="my-2">
                                 <li>

@@ -58,7 +58,7 @@
                                         <td>{{ Str::limit($p->alamat_tujuan, 20) }}</td>
                                         <td>{{ $p->detail->tanggal_dikirim }}</td>
                                         <td>{{ $p->layanan->nama_layanan }}</td>
-                                        <td>{{ strtoupper($p->status) }}</td>
+                                        <td>{{ strtoupper($p->histori->last()->status) }}</td>
                                         <td>
                                             <a href="pengiriman/detail?p={{ $p->kode_pengiriman }}">
                                                 Detail<i class="fa fa-arrow-up-right-from-square"></i>

@@ -22,6 +22,9 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/', function () {
         return view('dashboard', ['title' => 'Dashboard']);
     })->name('base');
+
+    Route::get('/masukkantor', [Logins::class, 'login_kantor'])->name('login_kantor');
+    Route::post('/masukkantor', [Logins::class, 'auth_kantor'])->name('auth_kantor');
     
     Route::get('/user', [User::class, 'show'])->name('user');
     Route::post('user/tambah', [User::class, 'store'])->name('tambah_user');
