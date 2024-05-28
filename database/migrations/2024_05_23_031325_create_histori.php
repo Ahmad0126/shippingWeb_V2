@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('id_user')->constrained(
                 table: 'user', indexName: 'histori_id_user_foreign'
             );
-            $table->foreignId('id_cabang')->constrained(
+            $table->foreignId('id_cabang')->nullable()->constrained(
                 table: 'cabang', indexName: 'histori_id_cabang_foreign'
             );
             $table->timestamps();

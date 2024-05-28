@@ -4,6 +4,7 @@ use App\Http\Controllers\Cabang;
 use App\Http\Controllers\Layanan;
 use App\Http\Controllers\Logins;
 use App\Http\Controllers\Pengiriman;
+use App\Http\Controllers\Pickup;
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,10 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/pengiriman/daftar', [Pengiriman::class, 'daftar'])->name('pengiriman_daftar');
     Route::get('/pengiriman/detail', [Pengiriman::class, 'detail'])->name('pengiriman_detail');
     Route::post('pengiriman/tambah', [Pengiriman::class, 'store'])->name('tambah_pengiriman');
+    
+    Route::get('/pickup', [Pickup::class, 'show'])->name('pickup');
+    Route::post('pickup/pick', [Pickup::class, 'pick'])->name('pick_barang');
+    Route::post('pickup/deliver', [Pickup::class, 'deliver'])->name('deliver_pickup');
 });
 
 Route::middleware(['guest'])->group(function(){

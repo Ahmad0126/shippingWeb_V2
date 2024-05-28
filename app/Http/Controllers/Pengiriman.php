@@ -25,7 +25,7 @@ class Pengiriman extends Controller
     }
     public function daftar(){
         if(!Gate::allows('kantor')){
-            return redirect(route('login_kantor'))->withErrors(['err_kantor' => 'Masuk ke kantor Office dahulu!']);
+            return redirect(route('base'))->withErrors(['err_kantor' => 'Masuk ke kantor Office dahulu!']);
         }
         $data['title'] = 'Pendaftaran Pengiriman';
         $data['layanan'] = Layanan::all();

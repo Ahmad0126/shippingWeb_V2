@@ -46,7 +46,7 @@
 								<td class="center">{{ $n++ }}</td>
 								<td class="left strong">{{ $h->tanggal }}</td>
 								<td class="left">{{ ucfirst($h->status) }}</td>
-								<td class="right">{{ $h->cabang->fasilitas.' '.$h->cabang->kota }}</td>
+								<td class="right">@if ($h->cabang != null) {{ $h->cabang->fasilitas.' '.$h->cabang->kota }} @endif</td>
 								<td class="center">{{ $h->deskripsi }}</td>
 							</tr>
 						@endforeach
