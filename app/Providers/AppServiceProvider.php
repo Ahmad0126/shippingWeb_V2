@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('kantor', function(){
+            if(session('kantor') == null){
+                return false;
+            }
             return session('kantor')->fasilitas === 'Office';
         });
         Gate::define('kasir', function(User $user){

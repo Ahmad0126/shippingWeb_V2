@@ -24,7 +24,7 @@ return new class extends Migration
             );
             $table->foreignId('id_cabang')->nullable()->constrained(
                 table: 'cabang', indexName: 'histori_id_cabang_foreign'
-            );
+            )->onDelete('cascade');
             $table->timestamps();
         });
     }

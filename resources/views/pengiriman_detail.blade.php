@@ -19,6 +19,7 @@
 							<strong>@if($pengiriman->nota != null) {{ $pengiriman->nota->nama_pengirim }}@endif</strong>
 						</div>
 						<div>@if($pengiriman->nota != null) {{ $pengiriman->nota->alamat_pengirim }} @endif</div>
+						<div>{{ substr($pengiriman->nota->no_nota, 3, 5) }}</div>
 						<div>No HP: @if($pengiriman->nota != null) {{ $pengiriman->nota->no_hp_pengirim }} @endif</div>
 					</div>
 					<div class="col-sm-6">
@@ -27,6 +28,7 @@
 							<strong>{{ $pengiriman->detail->nama_penerima }}</strong>
 						</div>
 						<div>{{ $pengiriman->alamat_tujuan }}</div>
+						<div>{{ $pengiriman->kode_pos }}</div>
 						<div>No HP: {{ $pengiriman->detail->no_hp_penerima }}</div>
 					</div>
 				</div>
