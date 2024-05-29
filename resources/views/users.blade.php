@@ -127,7 +127,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">No Telp</label>
                                 <div class="col-sm-10">
-                                    <input name="telp" type="number" class="form-control" placeholder="Masukkan No Telp" value="{{ old('telp') }}">
+                                    <input name="telp" type="text" class="form-control" placeholder="Masukkan No Telp" value="{{ old('telp') }}">
                                 </div>
                             </div>
                         </div>
@@ -181,7 +181,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">No Telp</label>
                                 <div class="col-sm-10">
-                                    <input name="telp" id="telp" type="number" class="form-control"
+                                    <input name="telp" id="telp" type="text" class="form-control"
                                         placeholder="Masukkan No Telp">
                                 </div>
                             </div>

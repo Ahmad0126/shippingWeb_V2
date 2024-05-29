@@ -5,6 +5,7 @@ use App\Http\Controllers\Layanan;
 use App\Http\Controllers\Logins;
 use App\Http\Controllers\Pengiriman;
 use App\Http\Controllers\Pickup;
+use App\Http\Controllers\Sorting;
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,11 @@ Route::middleware(['auth'])->group(function (){
     Route::post('pickup/pick', [Pickup::class, 'pick'])->name('pick_barang');
     Route::post('pickup/deliver', [Pickup::class, 'deliver'])->name('deliver_pickup');
     Route::post('pickup/hapus', [Pickup::class, 'hapus'])->name('hapus_pickup');
+    
+    Route::get('/sorting', [Sorting::class, 'show'])->name('sorting');
+    Route::post('sorting/pick', [Sorting::class, 'pick'])->name('pick_sort');
+    // Route::post('sorting/forward', [Sorting::class, 'forward'])->name('forward_sorting');
+    // Route::post('sorting/hapus', [Sorting::class, 'hapus'])->name('hapus_sorting');
 });
 
 Route::middleware(['guest'])->group(function(){

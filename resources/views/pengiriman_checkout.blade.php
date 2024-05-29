@@ -1,5 +1,26 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    @if ($errors->any())
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @foreach ($errors->all() as $e)
+                            <p>
+                                <span class="alert-icon"><i class="fa fa-exclamation"></i></span>
+                                <span class="alert-text">{{ $e }}</span>
+                            </p>
+                            @endforeach
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <form action="{{ route('pengiriman_proses') }}" method="post">
         @csrf
         <div class="row">
