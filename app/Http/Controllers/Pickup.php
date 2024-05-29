@@ -56,4 +56,12 @@ class Pickup extends Controller
         
         return redirect()->route('pickup')->with('notif', 'Berhasil mengantar barang');
     }
+    public function hapus(Request $req){
+        foreach($req->id_user as $p){
+            $pe = Pengiriman::where('kode_pengiriman', $p)->get()->first();
+            $h = Histori::where('id_pengiriman', $pe->id)->where('status', 'delivery')->get()->first();
+            $h->delete();
+        }
+        return redirect()->route('pickup')->with('notif', 'Berhasil membatalkan pickup');
+    }
 }

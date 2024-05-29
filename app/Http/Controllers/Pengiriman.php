@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailPengiriman;
 use App\Models\Histori;
 use App\Models\Layanan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\DetailPengiriman;
+use App\Models\Nota;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Pengiriman as ModelPengiriman;
-use Illuminate\Support\Facades\Gate;
 
 class Pengiriman extends Controller
 {
@@ -20,7 +21,12 @@ class Pengiriman extends Controller
     }
     public function detail(Request $req){
         $data['title'] = 'Detail Pengiriman';
-        $data['pengiriman'] = ModelPengiriman::where('kode_pengiriman', $req->p)->get()[0];
+        $data['pengiriman'] = ModelPengiriman::where('kode_pengiriman', $req->p)->get()->first();
+        return view('pengiriman_detail', $data);
+    }
+    public function nota(Request $req){
+        $data['title'] = 'Detail Transaksi';
+        $data['nota'] = Nota::where('no_nota', $req->p)->get()->first();
         return view('pengiriman_detail', $data);
     }
     public function daftar(){
@@ -75,5 +81,63 @@ class Pengiriman extends Controller
         $histori->save();
 
         return redirect()->route('pengiriman_daftar')->with('notif', 'Berhasil menambahkan pengiriman');
+    }
+    public function checkout(Request $req){
+        if($req->kode_pengiriman == null){
+            return redirect(route('pengiriman'))->withErrors(['err_pengiriman' => 'Tidak ada pengiriman yang dipilih!']);
+        }
+        $data['pengiriman'] = array();
+		$total = 0;
+		foreach ($req->kode_pengiriman as $k) {
+			$p = ModelPengiriman::where('kode_pengiriman', $k)->get()->first();
+			if($p == null){
+                return redirect(route('pengiriman'))->withErrors(['err_pengiriman' => 'Pengiriman tidak terdaftar!']);
+			}
+			if($p->histori->last()->status != 'registered'){
+                return redirect(route('pengiriman'))->withErrors(['err_pengiriman' => 'Pengiriman sudah di-checkout!']);
+			}
+			$total += $p->ongkir;
+			array_push($data['pengiriman'], $p);
+		}
+		$data['total'] = $total;
+		$data['title'] = 'Checkout Pengiriman';
+		return view('pengiriman_checkout', $data);
+    }
+    public function proses(Request $req){
+        $addr = $req->alamat_tujuan;
+        $kode = $this->generate_invoice($addr, $req->kode_pos);
+        $tanggal = date('Y-m-d H:i:s');
+        $alamat = $addr[0].'; '.$addr[1].'; '.$addr[2];
+        
+        $nota = new Nota();
+        $nota->no_nota = $kode;
+        $nota->alamat_pengirim = $alamat;
+        $nota->total = $req->total;
+        $nota->nama_pengirim = $req->nama_penerima;
+        $nota->no_hp_pengirim = $req->no_hp_penerima;
+        $nota->pembayaran = $req->pembayaran;
+        $nota->save();
+
+        foreach ($req->id_pengiriman as $k) {
+            $p = ModelPengiriman::find($k);
+            $p->id_nota = $nota->id;
+            $p->save();
+
+            $h = new Histori();
+            $h->id_pengiriman= $k;
+            $h->tanggal= $tanggal;
+            $h->deskripsi= 'Diproses di kantor';
+            $h->status= 'checkout';
+            $h->id_user= auth()->user()->id;
+            $h->id_cabang= session('kantor')->id;
+            $h->save();
+        }
+        return redirect()->route('pengiriman')->with('notif', 'Checkout pengiriman berhasil');
+    }
+    private function generate_invoice($alamat, $pos){
+        $tanggal = date('ymd');
+        $kota = substr(strtoupper($alamat[1]), 0, 3);
+        $code = $kota.$pos.'-'.$tanggal.fake()->randomNumber(3, true);
+        return $code;
     }
 }

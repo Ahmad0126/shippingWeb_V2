@@ -46,11 +46,15 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/pengiriman', [Pengiriman::class, 'show'])->name('pengiriman');
     Route::get('/pengiriman/daftar', [Pengiriman::class, 'daftar'])->name('pengiriman_daftar');
     Route::get('/pengiriman/detail', [Pengiriman::class, 'detail'])->name('pengiriman_detail');
+    Route::get('/pengiriman/checkout', [Pengiriman::class, 'checkout'])->name('pengiriman_checkout');
+    Route::get('/pengiriman/nota', [Pengiriman::class, 'nota'])->name('pengiriman_nota');
     Route::post('pengiriman/tambah', [Pengiriman::class, 'store'])->name('tambah_pengiriman');
+    Route::post('pengiriman/proses', [Pengiriman::class, 'proses'])->name('pengiriman_proses');
     
     Route::get('/pickup', [Pickup::class, 'show'])->name('pickup');
     Route::post('pickup/pick', [Pickup::class, 'pick'])->name('pick_barang');
     Route::post('pickup/deliver', [Pickup::class, 'deliver'])->name('deliver_pickup');
+    Route::post('pickup/hapus', [Pickup::class, 'hapus'])->name('hapus_pickup');
 });
 
 Route::middleware(['guest'])->group(function(){

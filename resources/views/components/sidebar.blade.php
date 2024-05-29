@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('base') }}" aria-expanded="false">
+                <a href="{{ route('pickup') }}" aria-expanded="false">
                     <i class="icon-basket menu-icon"></i><span class="nav-text">Pickup</span>
                 </a>
             </li>

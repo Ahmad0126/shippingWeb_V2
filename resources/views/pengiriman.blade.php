@@ -42,13 +42,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <form id="chot_pngrmn" action="{{ route('tambah_pengiriman') }}" method="get">
+                                <form id="chot_pngrmn" action="{{ route('pengiriman_checkout') }}" method="get">
                                     @php $n=1 @endphp
                                     @if ($pengiriman != null)
                                     @foreach($pengiriman as $p)
                                     <tr>
                                         <td class="pilihan" style="display: none;">
-                                            @if($p->status == 'registered')
+                                            @if($p->histori->last()->status == 'registered')
                                             <input class="ids" type="checkbox" name="kode_pengiriman[]" value="{{ $p->kode_pengiriman }}">
                                             @endif
                                         </td>
