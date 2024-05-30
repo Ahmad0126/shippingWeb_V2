@@ -15,12 +15,14 @@
 				<div class="row mb-4">
 					<div class="col-sm-6">
 						<h6 class="mb-3">Pengirim:</h6>
+						@if($pengiriman->nota != null)
 						<div>
-							<strong>@if($pengiriman->nota != null) {{ $pengiriman->nota->nama_pengirim }}@endif</strong>
+							<strong>{{ $pengiriman->nota->nama_pengirim }}</strong>
 						</div>
-						<div>@if($pengiriman->nota != null) {{ $pengiriman->nota->alamat_pengirim }} @endif</div>
+						<div>{{ $pengiriman->nota->alamat_pengirim }}</div>
 						<div>{{ substr($pengiriman->nota->no_nota, 3, 5) }}</div>
-						<div>No HP: @if($pengiriman->nota != null) {{ $pengiriman->nota->no_hp_pengirim }} @endif</div>
+						<div>No HP: {{ $pengiriman->nota->no_hp_pengirim }}</div>
+						@endif
 					</div>
 					<div class="col-sm-6">
 						<h6 class="mb-3">Penerima:</h6>
@@ -125,7 +127,7 @@
 							</tr>
 							<tr>
 								<td><strong>Nota Terkait</strong></td>
-								<td>@if($pengiriman->nota != null) <a href="pengiriman/nota?p={{ $pengiriman->nota->no_nota }}"> {{ $pengiriman->nota->no_nota }} @endif</a></td>
+								<td>@if($pengiriman->nota != null) <a href="{{ route('pengiriman_nota') }}?p={{ $pengiriman->nota->no_nota }}"> {{ $pengiriman->nota->no_nota }} @endif</a></td>
 							</tr>
 						</table>
 					</div>

@@ -27,7 +27,7 @@ class Pengiriman extends Controller
     public function nota(Request $req){
         $data['title'] = 'Detail Transaksi';
         $data['nota'] = Nota::where('no_nota', $req->p)->get()->first();
-        return view('pengiriman_detail', $data);
+        return view('pengiriman_nota', $data);
     }
     public function daftar(){
         if(!Gate::allows('kantor')){
@@ -51,13 +51,32 @@ class Pengiriman extends Controller
             'instruksi_khusus' => 'nullable|max:200'
         ]);
 
+        $pos1 = $req->kode_pos;
+        $pos2 = session('kantor')->kode_pos;
+        $diff_pos = str_pad(abs($pos1 - $pos2), 5, STR_PAD_LEFT);
+        $jarak = intval(substr($diff_pos, 0, 1));
+
+        $layanan = Layanan::find($req->id_layanan)->first();
+        if($req->berat / 1000 > $layanan->kapasitas){
+            return redirect()->route('pengiriman_daftar')->withErrors(
+                ['pengiriman', 'Barang melebihi kapasitas layanan']
+            )->withInput();
+        }
+        $waktu = explode('-', $layanan->waktu);
+        $estimasi = $waktu[0];
+        $ongkir = $layanan->ongkir;
+        if($jarak > 1){ 
+            $ongkir = $ongkir * $jarak * ceil($req->berat / 1000);
+            $estimasi = $waktu[1]; 
+        }
+
         $pengiriman = new ModelPengiriman();
         $pengiriman->id_layanan = $req->id_layanan;
         $pengiriman->kode_pos = $req->kode_pos;
         $pengiriman->alamat_tujuan = implode('; ', $req->alamat_tujuan);
         $pengiriman->kode_pengiriman = fake()->ean13();
-        $pengiriman->ongkir = 0;
-        $pengiriman->estimasi = '2';
+        $pengiriman->ongkir = $ongkir;
+        $pengiriman->estimasi = $estimasi;
         $pengiriman->save();
 
         $detail = new DetailPengiriman();
@@ -79,6 +98,10 @@ class Pengiriman extends Controller
         $histori->id_user = auth()->user()->id;
         $histori->id_cabang = session('kantor')->id;
         $histori->save();
+
+        if($req->process == 'true'){
+            return redirect('pengiriman/checkout?kode_pengiriman%5B%5D='.$pengiriman->kode_pengiriman);
+        }
 
         return redirect()->route('pengiriman_daftar')->with('notif', 'Berhasil menambahkan pengiriman');
     }
@@ -104,6 +127,16 @@ class Pengiriman extends Controller
 		return view('pengiriman_checkout', $data);
     }
     public function proses(Request $req){
+        $req->validate([
+            'id_pengiriman' => 'required',
+            'pembayaran' => 'required',
+            'nama_penerima' => 'required|max:60',
+            'kode_pos' => 'required|numeric|max_digits:5',
+            'total' => 'required|integer',
+            'alamat_tujuan' => 'required',
+            'no_hp_penerima' => 'nullable|numeric|max_digits:15'
+        ]);
+
         $addr = $req->alamat_tujuan;
         $kode = $this->generate_invoice($addr, $req->kode_pos);
         $tanggal = date('Y-m-d H:i:s');
