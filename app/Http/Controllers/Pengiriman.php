@@ -30,7 +30,7 @@ class Pengiriman extends Controller
         return view('pengiriman_nota', $data);
     }
     public function daftar(){
-        if(!Gate::allows('kantor')){
+        if(!Gate::allows('kantor', 'Office')){
             return redirect(route('base'))->withErrors(['err_kantor' => 'Masuk ke kantor Office dahulu!']);
         }
         $data['title'] = 'Pendaftaran Pengiriman';

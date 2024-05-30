@@ -59,7 +59,9 @@
                                 @php $n=1 @endphp  
                                 @foreach ($users as $u)
                                 <tr>
+                                    @if(auth()->user()->id != $u->id)
                                     <td class="pilihan" style="display: none;"><input class="ids" type="checkbox" value="{{ $u['id'] }}"></td>
+                                    @endif
                                     <td>{{ $n++ }}</td>
                                     <td>{{ $u['username'] }}</td>
                                     <td class="nama">{{ $u['nama'] }}</td>

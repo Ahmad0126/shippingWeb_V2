@@ -38,7 +38,7 @@
 
             <li class="nav-label">Kantor</li>
             <li>
-                <a href="{{ route('base') }}" aria-expanded="false">
+                <a href="{{ route('sorting') }}" aria-expanded="false">
                     <i class="icon-directions menu-icon"></i><span class="nav-text">Sorting Center</span>
                 </a>
             </li>

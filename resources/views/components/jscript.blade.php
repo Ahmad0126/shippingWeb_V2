@@ -178,7 +178,6 @@
         }
     })
     $('.ok-btn').on("click", function () {
-        console.log('click');
         if(url == '/deliver'){
             $('#dlv-form').submit();
         }
@@ -200,6 +199,12 @@
             $('#global_form').attr('action', base_url + '/' + obj + url);
             $('#global_form').submit();
         });
+        
+    });
+    $('.terima-btn').on("click", function () {
+        $('#global_form').append('<input type="hidden" name="kode" value="'+$(this).data('kode')+'">');
+        $('#global_form').attr('action', base_url + '/' + obj + '/' + 'pick');
+        $('#global_form').submit();
         
     });
     $('.ok-acc-btn').on("click", function () {

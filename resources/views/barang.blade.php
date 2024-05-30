@@ -36,7 +36,7 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="kode" role="tabpanel">
-                                            <form action="{{ route('base').($url.'/pick') }}" method="post">
+                                            <form action="{{ route('base').'/'.$url.'/pick' }}" method="post">
                                                 @csrf
                                                 <div class="input-group">
                                                     <input type="text" name="kode" class="form-control" placeholder="Masukkan Kode">
@@ -47,11 +47,6 @@
                                             </form>
                                         </div>
                                         <div class="tab-pane fade" id="fwdd">
-                                            <span class="float-right">
-                                                <button class="btn btn-secondary batal-acc-btn" style="display: none;">Batal</button>
-                                                <button class="btn btn-success ok-acc-btn" style="display: none;">OK</button>
-                                                <button class="btn btn-primary acc-btn">Terima</button>
-                                            </span>
                                             <div class="table-responsive">
                                                 <table class="table table-striped">
                                                     <thead>
@@ -62,19 +57,27 @@
                                                             <th>Deskripsi Barang</th>
                                                             <th>Nama Penerima</th>
                                                             <th>Alamat Tujuan</th>
+                                                            <th>Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @php $n=1 @endphp
                                                         @foreach($forwarded as $f)
+                                                            @if ($f->histori->last()->id_cabang == session('kantor')->id && $f->histori->last()->status == 'forwarded')
                                                             <tr>
                                                                 <td class="slc-acc" style="display: none;"><input class="kodes" type="checkbox" value="{{ $f->kode_pengiriman }}"></td>
                                                                 <td>{{ $n++ }}</td>
                                                                 <td>{{ $f->kode_pengiriman }}</td>
-                                                                <td>{{ $f->deskripsi }}</td>
-                                                                <td>{{ $f->nama_penerima }}</td>
+                                                                <td>{{ $f->detail->deskripsi }}</td>
+                                                                <td>{{ $f->detail->nama_penerima }}</td>
                                                                 <td>{{ $f->alamat_tujuan }}</td>
+                                                                <td>
+                                                                    <button class="btn btn-sm btn-primary terima-btn" data-kode="{{ $f->kode_pengiriman }}">
+                                                                        Terima
+                                                                    </button>
+                                                                </td>
                                                             </tr>
+                                                            @endif
                                                         @endforeach
                                                     </tbody>
                                                 </table>
@@ -85,7 +88,7 @@
                             </div>
                             <div class="tab-pane fade" id="fwd">
                                 <h4 class="card-title mb-3">Teruskan Ke Kantor lain</h4>
-                                <form action="{{ route('base').($url.'/forward') }}" method="post">
+                                <form action="{{ route('base').'/'.$url.'/forward' }}" method="post">
                                     @csrf
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
@@ -118,9 +121,7 @@
                             <input type="hidden" data-obj="{{ $url }}" class="edit-btn">
                             <button class="btn btn-secondary batal-btn" style="display: none;">Batal</button>
                             <button class="btn btn-success ok-btn" style="display: none;">OK</button>
-                            <button class="btn btn-success show-fwd-btn" data-toggle="modal" data-target=".modal-fwd" style="display: none;">OK</button>
                             <button class="btn btn-warning hapus-btn">Batalkan</button>
-                            <button class="btn btn-primary fwd-btn">Teruskan</button>
                         </span>
                     </div>
                     <div class="table-responsive">
@@ -136,16 +137,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $n=1 @endphp
+                                @php 
+                                    $n=1;
+                                    switch ($url) {
+                                        case 'warehouse': $st = 'received_warehouse'; break;
+                                        case 'gateway': $st = 'received_origin'; break;
+                                        default: $st = 'received_sort'; break;
+                                    }
+                                @endphp
                                 @foreach($pengiriman as $b)
+                                    @if ($b->histori->last()->status == $st)
                                     <tr>
                                         <td class="pilihan" style="display: none;"><input class="ids" type="checkbox" value="{{ $b->kode_pengiriman }}"></td>
                                         <td>{{ $n++ }}</td>
                                         <td>{{ $b->kode_pengiriman }}</td>
-                                        <td>{{ $b->deskripsi }}</td>
-                                        <td>{{ $b->nama_penerima }}</td>
+                                        <td>{{ $b->detail->deskripsi }}</td>
+                                        <td>{{ $b->detail->nama_penerima }}</td>
                                         <td>{{ $b->alamat_tujuan }}</td>
                                     </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -154,32 +164,9 @@
             </div>
         </div>
     </div>
-    <div class="modal fade modal-fwd" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Teruskan ke kantor</h5>
-                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
-                    </button>
-                </div>
-                <form action="{{ route('base').($url.'/forward') }}" method="post">
-                    <div class="modal-body">
-                        <div class="basic-form">
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Kode Kantor</label>
-                                <div class="col-sm-10">
-                                    <input name="kode_cabang" type="text" class="form-control" placeholder="Masukkan Kode Kantor">
-                                    <input id="kode_pengiriman" name="kode_pengiriman" type="hidden">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Teruskan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div class="d-none">
+        <form id="global_form" action="{{ route('sorting') }}" method="post">
+            @csrf
+        </form>
     </div>
 </x-layout>

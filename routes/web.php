@@ -59,8 +59,8 @@ Route::middleware(['auth'])->group(function (){
     
     Route::get('/sorting', [Sorting::class, 'show'])->name('sorting');
     Route::post('sorting/pick', [Sorting::class, 'pick'])->name('pick_sort');
-    // Route::post('sorting/forward', [Sorting::class, 'forward'])->name('forward_sorting');
-    // Route::post('sorting/hapus', [Sorting::class, 'hapus'])->name('hapus_sorting');
+    Route::post('sorting/forward', [Sorting::class, 'forward'])->name('forward_sorting');
+    Route::post('sorting/hapus', [Sorting::class, 'hapus'])->name('hapus_sorting');
 });
 
 Route::middleware(['guest'])->group(function(){
