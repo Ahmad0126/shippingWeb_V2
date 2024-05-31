@@ -43,12 +43,12 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('base') }}" aria-expanded="false">
+                <a href="{{ route('gateway') }}" aria-expanded="false">
                     <i class="icon-direction menu-icon"></i><span class="nav-text">Gateway</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('base') }}" aria-expanded="false">
+                <a href="{{ route('warehouse') }}" aria-expanded="false">
                     <i class="icon-layers menu-icon"></i><span class="nav-text">Warehouse</span>
                 </a>
             </li>

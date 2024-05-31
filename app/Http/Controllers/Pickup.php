@@ -23,6 +23,12 @@ class Pickup extends Controller
         if($p == null){
             return redirect(route('pickup'))->withErrors(['pickup' => 'Kode barang tidak terdaftar!']);
         }
+        if($p->histori->last()->status == 'delivery'){
+            return redirect(route('pickup'))->withErrors(['pickup' => 'Barang sudah di bagasi!']);
+        }
+        if($p->histori->last()->status == 'delivered'){
+            return redirect(route('pickup'))->withErrors(['pickup' => 'Barang sudah diantar ke penerima!']);
+        }
 
         $h = new Histori();
         $h->id_pengiriman = $p->id;
@@ -39,6 +45,9 @@ class Pickup extends Controller
         $p = Pengiriman::where('kode_pengiriman', $req->kode)->get()->first();
         if($p == null){
             return redirect(route('pickup'))->withErrors(['pickup' => 'Kode barang tidak terdaftar!']);
+        }
+        if($p->histori->last()->status == 'delivered'){
+            return redirect(route('pickup'))->withErrors(['pickup' => 'Barang sudah diantar ke penerima!']);
         }
         $h = Histori::where('id_user', auth()->user()->id)->where('status', 'delivery')->where('id_pengiriman', $p->id)->get()->first();
         if($h == null){

@@ -65,8 +65,6 @@
                             <input type="hidden" data-obj="pickup" class="edit-btn">
                             <button class="btn btn-secondary batal-btn" style="display: none;">Batal</button>
                             <button class="btn btn-success ok-btn" style="display: none;">OK</button>
-                            <button class="btn btn-success ok-dlv-btn" style="display: none;">OK</button>
-                            <button class="btn btn-primary dlv-btn">Antarkan</button>
                             <button class="btn btn-warning hapus-btn">Batalkan</button>
                         </span>
                     </div>

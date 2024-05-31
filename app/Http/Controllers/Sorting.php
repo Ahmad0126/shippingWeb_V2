@@ -38,6 +38,9 @@ class Sorting extends Controller
         if($p->histori->last()->status == 'received_sort'){
             return redirect(route('sorting'))->withErrors(['sorting' => 'Barang sudah diterima!']);
         }
+        if($p->histori->last()->status == 'delivered'){
+            return redirect(route('sorting'))->withErrors(['sorting' => 'Barang sudah diantar ke penerima!']);
+        }
 
         $h = new Histori();
         $h->id_pengiriman = $p->id;
@@ -54,6 +57,9 @@ class Sorting extends Controller
         $p = Pengiriman::where('kode_pengiriman', $req->kode_pengiriman)->get()->first();
         if($p == null){
             return redirect(route('sorting'))->withErrors(['sorting' => 'Kode barang tidak terdaftar!']);
+        }
+        if($p->histori->last()->status == 'delivered'){
+            return redirect(route('sorting'))->withErrors(['sorting' => 'Barang sudah diantar ke penerima!']);
         }
         $h = Histori::where('id_user', auth()->user()->id)->where('status', 'received_sort')->where('id_pengiriman', $p->id)->get()->first();
         if($h == null){
@@ -76,7 +82,7 @@ class Sorting extends Controller
         $h->id_cabang = $c->id;
         $h->save();
         
-        return redirect()->route('sorting')->with('notif', 'Berhasil mengantar barang');
+        return redirect()->route('sorting')->with('notif', 'Berhasil meneruskan barang');
     }
     public function hapus(Request $req){
         foreach($req->id_user as $p){

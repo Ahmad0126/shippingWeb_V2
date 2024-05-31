@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Cabang;
+use App\Http\Controllers\Gateway;
 use App\Http\Controllers\Layanan;
 use App\Http\Controllers\Logins;
 use App\Http\Controllers\Pengiriman;
 use App\Http\Controllers\Pickup;
 use App\Http\Controllers\Sorting;
 use App\Http\Controllers\User;
+use App\Http\Controllers\Warehouse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,6 +63,16 @@ Route::middleware(['auth'])->group(function (){
     Route::post('sorting/pick', [Sorting::class, 'pick'])->name('pick_sort');
     Route::post('sorting/forward', [Sorting::class, 'forward'])->name('forward_sorting');
     Route::post('sorting/hapus', [Sorting::class, 'hapus'])->name('hapus_sorting');
+    
+    Route::get('/gateway', [Gateway::class, 'show'])->name('gateway');
+    Route::post('gateway/pick', [Gateway::class, 'pick'])->name('pick_sort');
+    Route::post('gateway/forward', [Gateway::class, 'forward'])->name('forward_gateway');
+    Route::post('gateway/hapus', [Gateway::class, 'hapus'])->name('hapus_gateway');
+    
+    Route::get('/warehouse', [Warehouse::class, 'show'])->name('warehouse');
+    Route::post('warehouse/pick', [Warehouse::class, 'pick'])->name('pick_sort');
+    Route::post('warehouse/forward', [Warehouse::class, 'forward'])->name('forward_warehouse');
+    Route::post('warehouse/hapus', [Warehouse::class, 'hapus'])->name('hapus_warehouse');
 });
 
 Route::middleware(['guest'])->group(function(){
