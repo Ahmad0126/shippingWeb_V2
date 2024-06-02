@@ -28,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
             
             return session('kantor')->fasilitas === $fasilitas;
         });
+        Gate::define('admin', function(User $user){
+            return $user->level === 'Admin';
+        });
         Gate::define('kasir', function(User $user){
             return $user->level === 'Kasir' || $user->level === 'Admin';
         });

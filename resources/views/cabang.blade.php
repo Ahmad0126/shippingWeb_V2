@@ -19,6 +19,7 @@
                     @endif
                     <div class="card-title d-flex justify-content-between">
                         <h4>Daftar Cabang</h4>
+                        @can('admin')
                         <span>
                             <button class="btn btn-secondary batal-btn" style="display: none;">Batal</button>
                             <button class="btn btn-success ok-btn" style="display: none;">OK</button>
@@ -37,6 +38,7 @@
                                 </div>
                             </div>
                         </span>
+                        @endcan
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
