@@ -34,7 +34,7 @@
                                     <th>#</th>
                                     <th>Kode Pengiriman</th>
                                     <th>Nama Penerima</th>
-                                    <th>Kota Tujuan</th>
+                                    <th>Alamat Tujuan</th>
                                     <th>Tanggal Dikirim</th>
                                     <th>Layanan</th>
                                     <th>Status</th>
@@ -56,7 +56,7 @@
                                         <td>{{ $p->kode_pengiriman }}</td>
                                         <td>{{ $p->detail->nama_penerima }}</td>
                                         <td>{{ Str::limit($p->alamat_tujuan, 20) }}</td>
-                                        <td>{{ $p->detail->tanggal_dikirim }}</td>
+                                        <td>{{ date('d-m-Y H:i',strtotime($p->detail->tanggal_dikirim)) }}</td>
                                         <td>{{ $p->layanan->nama_layanan }}</td>
                                         <td>{{ strtoupper($p->histori->last()->status) }}</td>
                                         <td>

@@ -16,7 +16,7 @@ class Pengiriman extends Controller
 {
     public function show(){
         $data['title'] = 'Daftar Pengiriman';
-        $data['pengiriman'] = ModelPengiriman::all();
+        $data['pengiriman'] = ModelPengiriman::orderBy('id', 'desc')->get();
         return view('pengiriman', $data);
     }
     public function detail(Request $req){
@@ -28,6 +28,10 @@ class Pengiriman extends Controller
         $data['title'] = 'Detail Transaksi';
         $data['nota'] = Nota::where('no_nota', $req->p)->get()->first();
         return view('pengiriman_nota', $data);
+    }
+    public function cetaknota(Request $req){
+        $data['pengiriman'] = ModelPengiriman::where('kode_pengiriman', $req->p)->get()->first();
+        return view('cetak_nota', $data);
     }
     public function daftar(){
         if(!Gate::allows('kantor', 'Office')){

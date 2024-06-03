@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Cabang;
+use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Gateway;
 use App\Http\Controllers\Layanan;
 use App\Http\Controllers\Logins;
@@ -23,9 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function (){
-    Route::get('/', function () {
-        return view('dashboard', ['title' => 'Dashboard']);
-    })->name('base');
+    Route::get('/', [Dashboard::class, 'show'])->name('base');
 
     Route::get('/masukkantor', [Logins::class, 'login_kantor'])->name('login_kantor');
     Route::post('/masukkantor', [Logins::class, 'auth_kantor'])->name('auth_kantor');
@@ -58,6 +57,7 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/pengiriman/detail', [Pengiriman::class, 'detail'])->name('pengiriman_detail');
         Route::get('/pengiriman/checkout', [Pengiriman::class, 'checkout'])->name('pengiriman_checkout');
         Route::get('/pengiriman/nota', [Pengiriman::class, 'nota'])->name('pengiriman_nota');
+        Route::get('/pengiriman/cetaknota', [Pengiriman::class, 'cetaknota'])->name('pengiriman_cetaknota');
         Route::post('pengiriman/tambah', [Pengiriman::class, 'store'])->name('tambah_pengiriman');
         Route::post('pengiriman/proses', [Pengiriman::class, 'proses'])->name('pengiriman_proses');
     });

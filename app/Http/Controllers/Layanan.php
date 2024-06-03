@@ -9,7 +9,7 @@ class Layanan extends Controller
 {
     public function show(){
         $data['title'] = 'Daftar Layanan';
-        $data['layanan'] = ModelLayanan::all();
+        $data['layanan'] = ModelLayanan::orderBy('id', 'desc')->get();
         return view('layanan', $data);
     }
 

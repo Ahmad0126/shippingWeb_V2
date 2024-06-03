@@ -1,13 +1,26 @@
-<x-layout>
-	<x-slot:title>{{ $title }}</x-slot:title>
-	<div class="col-12">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cetak Resi</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
+    <!-- Custom Stylesheet -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+</head>
+<body>
+    <div class="col-12">
 		<div class="card">
 			<div class="card-header d-flex justify-content-between">
 				<span>
-					Pengiriman <strong>{{ $pengiriman->kode_pengiriman }}</strong>
+					No Resi: <strong>{{ $pengiriman->kode_pengiriman }}</strong>
 				</span>
 				<span>
-					<strong>Status:</strong> {{ ucfirst($pengiriman->histori->last()->status) }}
+					<strong>No Invoice:</strong> {{ $pengiriman->nota->no_nota }}
 				</span>
 			</div>
 			<hr class="m-0">
@@ -33,28 +46,6 @@
 						<div>{{ $pengiriman->kode_pos }}</div>
 						<div>No HP: {{ $pengiriman->detail->no_hp_penerima }}</div>
 					</div>
-				</div>
-				<div class="table-responsive-sm">
-					<h4>Histori Status</h4>
-					<table class="table table-striped">
-						<thead>
-							<th>#</th>
-							<th>Tanggal</th>
-							<th>Status</th>
-							<th>Kantor</th>
-							<th>Deskripsi</th>
-						</thead>
-						@php $n=1 @endphp
-						@foreach($pengiriman->histori as $h)
-							<tr>
-								<td class="center">{{ $n++ }}</td>
-								<td class="left strong">{{ date('d-m-Y H:i', strtotime($h->tanggal)) }}</td>
-								<td class="left">{{ ucfirst($h->status) }}</td>
-								<td class="right">@if ($h->cabang != null) {{ $h->cabang->fasilitas.' '.$h->cabang->kota }} @endif</td>
-								<td class="center">{{ $h->deskripsi }}</td>
-							</tr>
-						@endforeach
-					</table>
 				</div>
 				<div class="row">
 					<div class="col-lg-4 col-12 ms-auto">
@@ -125,14 +116,14 @@
 								<td><strong>Pembayaran</strong></td>
 								<td>@if($pengiriman->nota != null) {{ $pengiriman->nota->pembayaran }} @endif</td>
 							</tr>
-							<tr>
-								<td><strong>Nota Terkait</strong></td>
-								<td>@if($pengiriman->nota != null) <a href="{{ route('pengiriman_nota') }}?p={{ $pengiriman->nota->no_nota }}"> {{ $pengiriman->nota->no_nota }} @endif</a></td>
-							</tr>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</x-layout>
+	<script>
+		window.print()
+	</script>
+</body>
+</html>

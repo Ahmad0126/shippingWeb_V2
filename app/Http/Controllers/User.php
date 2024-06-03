@@ -10,7 +10,7 @@ class User extends Controller
 {
     public function show(){
         $data['title'] = 'Daftar User';
-        $data['users'] = ModelsUser::all();
+        $data['users'] = ModelsUser::orderBy('id', 'desc')->get();
         return view('users', $data);
     }
 

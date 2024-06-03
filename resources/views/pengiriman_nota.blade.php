@@ -40,6 +40,7 @@
                                     <th class="border-top-0">Layanan</th>
                                     <th class="border-top-0">Nama Penerima</th>
                                     <th class="border-top-0">Biaya</th>
+                                    <th class="border-top-0">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,6 +51,10 @@
                                     <td>{{ $p->layanan->nama_layanan }}</td>
                                     <td>{{ $p->detail->nama_penerima }}</td>
                                     <td>Rp {{ number_format($p->ongkir) }}</td>
+                                    <td>
+                                        <a href="{{ route('pengiriman_detail').'?p='.$p->kode_pengiriman }}" class="btn btn-sm btn-primary">Detail</a>
+                                        <a href="{{ route('pengiriman_cetaknota').'?p='.$p->kode_pengiriman }}" class="btn btn-sm btn-success">Cetak</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 <tr>

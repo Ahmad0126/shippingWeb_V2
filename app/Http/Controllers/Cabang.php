@@ -9,7 +9,7 @@ class Cabang extends Controller
 {
     public function show(){
         $data['title'] = 'Daftar Cabang';
-        $data['cabang'] = ModelCabang::all();
+        $data['cabang'] = ModelCabang::orderBy('id', 'desc')->get();
         return view('cabang', $data);
     }
 
