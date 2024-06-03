@@ -30,6 +30,9 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/masukkantor', [Logins::class, 'login_kantor'])->name('login_kantor');
     Route::post('/masukkantor', [Logins::class, 'auth_kantor'])->name('auth_kantor');
     
+    Route::get('/password', [Logins::class, 'password'])->name('password');
+    Route::post('/password', [Logins::class, 'ganti_password'])->name('ganti_password');
+    
     Route::get('/cabang', [Cabang::class, 'show'])->name('cabang');
     Route::get('/layanan', [Layanan::class, 'show'])->name('layanan');
         
