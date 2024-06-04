@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Histori;
 use App\Models\Layanan;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\DetailPengiriman;
 use App\Models\Nota;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Pengiriman as ModelPengiriman;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Pengiriman extends Controller
 {
@@ -32,7 +31,8 @@ class Pengiriman extends Controller
             abort(404);
         }
         $data['pengiriman'] = ModelPengiriman::where('kode_pengiriman', $req->p)->get()->first();
-        return view('cetak_nota', $data);
+        $pdf = Pdf::loadView('cetak_nota', $data);
+        return $pdf->stream();
     }
     public function daftar(){
         if(!Gate::allows('kantor', 'Office')){

@@ -1,5 +1,10 @@
 <x-layout>
 	<x-slot:title>{{ $title }}</x-slot:title>
+	<div class="row">
+		<div class="col mb-3 mr-3">
+			<a target="_blank" href="{{ route('pengiriman_cetaknota').'?p='.$pengiriman->kode_pengiriman }}" class="btn btn-primary float-right">Cetak <i class="menu-icon icon-printer"></i></a>
+		</div>
+	</div>
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header d-flex justify-content-between">
