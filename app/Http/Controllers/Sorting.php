@@ -17,13 +17,21 @@ class Sorting extends Controller
         $data['title'] = 'Sorting Barang';
         $data['url'] = 'sorting';
         $h = Histori::where('id_user', auth()->user()->id)->where('status', 'received_sort')->get();
-        $fw = Histori::where('id_user', auth()->user()->id)->where('status', 'forwarded')->get();
         $data['pengiriman'] = array();
-        $data['forwarded'] = array();
         $n = 0;
         foreach($h as $f){
             $data['pengiriman'][$n++] = Pengiriman::find($f->id_pengiriman);;
         }
+        return view('barang', $data);
+    }
+    public function forwarded(){
+        if(!Gate::allows('kantor', 'Sorting Center')){
+            return redirect(route('base'))->withErrors(['err_kantor' => 'Masuk ke Sorting Center dahulu!']);
+        }
+        $data['title'] = 'Sorting Barang';
+        $data['url'] = 'sorting';
+        $fw = Histori::where('id_user', auth()->user()->id)->where('status', 'forwarded')->get();
+        $data['forwarded'] = array();
         $n = 0;
         foreach($fw as $f){
             $data['forwarded'][$n++] = Pengiriman::find($f->id_pengiriman);;

@@ -27,63 +27,25 @@
                         <div class="tab-content">
                             <div class="tab-pane fade active show" id="acc" role="tabpanel">
                                 <h4 class="card-title mb-3">Terima Barang</h4>
-                                <div class="default-tab">
-                                    <ul class="nav nav-tabs mb-3" role="tablist">
-                                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#kode">Kode</a>
-                                        </li>
-                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#fwdd">Diteruskan</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade active show" id="kode" role="tabpanel">
-                                            <form action="{{ route('base').'/'.$url.'/pick' }}" method="post">
-                                                @csrf
+                                <div class="tab-pane fade active show" id="kode" role="tabpanel">
+                                    <form action="{{ route('base').'/'.$url.'/pick' }}" method="post">
+                                        @csrf
+                                        <div class="form-row">
+                                            <div class="form-group col-md-8">
                                                 <div class="input-group">
                                                     <input type="text" name="kode" class="form-control" placeholder="Masukkan Kode">
                                                     <div class="input-group-append">
                                                         <button type="submit" class="btn btn-primary">Terima</button>
                                                     </div>
                                                 </div>
-                                            </form>
-                                        </div>
-                                        <div class="tab-pane fade" id="fwdd">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="slc-acc" style="display: none;">Pilih</th>
-                                                            <th>#</th>
-                                                            <th>Kode Pengiriman</th>
-                                                            <th>Deskripsi Barang</th>
-                                                            <th>Nama Penerima</th>
-                                                            <th>Alamat Tujuan</th>
-                                                            <th>Aksi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @php $n=1 @endphp
-                                                        @foreach($forwarded as $f)
-                                                            @if ($f->histori->last()->id_cabang == session('kantor')->id && $f->histori->last()->status == 'forwarded')
-                                                            <tr>
-                                                                <td class="slc-acc" style="display: none;"><input class="kodes" type="checkbox" value="{{ $f->kode_pengiriman }}"></td>
-                                                                <td>{{ $n++ }}</td>
-                                                                <td>{{ $f->kode_pengiriman }}</td>
-                                                                <td>{{ $f->detail->deskripsi }}</td>
-                                                                <td>{{ $f->detail->nama_penerima }}</td>
-                                                                <td>{{ $f->alamat_tujuan }}</td>
-                                                                <td>
-                                                                    <button class="btn btn-sm btn-primary terima-btn" data-kode="{{ $f->kode_pengiriman }}">
-                                                                        Terima
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                            @endif
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <a href="{{ $url.'/forwarded' }}" class="btn btn-primary form-control">
+                                                    Barang Yang Diteruskan
+                                                </a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="fwd">

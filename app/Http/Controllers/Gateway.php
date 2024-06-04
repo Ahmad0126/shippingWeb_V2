@@ -17,18 +17,26 @@ class Gateway extends Controller
         $data['title'] = 'Gateway Barang';
         $data['url'] = 'gateway';
         $h = Histori::where('id_user', auth()->user()->id)->where('status', 'received_origin')->get();
-        $fw = Histori::where('id_user', auth()->user()->id)->where('status', 'forwarded')->get();
         $data['pengiriman'] = array();
-        $data['forwarded'] = array();
         $n = 0;
         foreach($h as $f){
             $data['pengiriman'][$n++] = Pengiriman::find($f->id_pengiriman);;
         }
+        return view('barang', $data);
+    }
+    public function forwarded(){
+        if(!Gate::allows('kantor', 'Gateway')){
+            return redirect(route('base'))->withErrors(['err_kantor' => 'Masuk ke Gateway dahulu!']);
+        }
+        $data['title'] = 'Barang yang diteruskan';
+        $data['url'] = 'gateway';
+        $fw = Histori::where('id_user', auth()->user()->id)->where('status', 'forwarded')->get();
+        $data['forwarded'] = array();
         $n = 0;
         foreach($fw as $f){
             $data['forwarded'][$n++] = Pengiriman::find($f->id_pengiriman);;
         }
-        return view('barang', $data);
+        return view('forwarded', $data);
     }
     public function pick(Request $req){
         $p = Pengiriman::where('kode_pengiriman', $req->kode)->get()->first();

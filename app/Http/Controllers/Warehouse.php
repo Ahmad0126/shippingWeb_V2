@@ -17,18 +17,26 @@ class Warehouse extends Controller
         $data['title'] = 'Warehouse Barang';
         $data['url'] = 'warehouse';
         $h = Histori::where('id_user', auth()->user()->id)->where('status', 'received_warehouse')->get();
-        $fw = Histori::where('id_user', auth()->user()->id)->where('status', 'forwarded')->get();
         $data['pengiriman'] = array();
-        $data['forwarded'] = array();
         $n = 0;
         foreach($h as $f){
             $data['pengiriman'][$n++] = Pengiriman::find($f->id_pengiriman);;
         }
+        return view('barang', $data);
+    }
+    public function forwarded(){
+        if(!Gate::allows('kantor', 'Warehouse')){
+            return redirect(route('base'))->withErrors(['err_kantor' => 'Masuk ke Warehouse dahulu!']);
+        }
+        $data['title'] = 'Warehouse Barang';
+        $data['url'] = 'warehouse';
+        $fw = Histori::where('id_user', auth()->user()->id)->where('status', 'forwarded')->get();
+        $data['forwarded'] = array();
         $n = 0;
         foreach($fw as $f){
             $data['forwarded'][$n++] = Pengiriman::find($f->id_pengiriman);;
         }
-        return view('barang', $data);
+        return view('forwarded', $data);
     }
     public function pick(Request $req){
         $p = Pengiriman::where('kode_pengiriman', $req->kode)->get()->first();
