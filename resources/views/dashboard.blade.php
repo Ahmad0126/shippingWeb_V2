@@ -49,7 +49,6 @@
                     <h3 class="card-title text-white">Total Pengiriman</h3>
                     <div class="d-inline-block">
                         <h2 class="text-white">{{ number_format($pengiriman) }}</h2>
-                        <p class="text-white mb-0">Juni 2024 - Now</p>
                     </div>
                     <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
                 </div>
@@ -61,7 +60,6 @@
                     <h3 class="card-title text-white">Total Transaksi</h3>
                     <div class="d-inline-block">
                         <h2 class="text-white">Rp {{ number_format($worth) }}</h2>
-                        <p class="text-white mb-0">Jan - March 2019</p>
                     </div>
                     <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
                 </div>
@@ -73,7 +71,6 @@
                     <h3 class="card-title text-white">Total User</h3>
                     <div class="d-inline-block">
                         <h2 class="text-white">{{ number_format($users) }}</h2>
-                        <p class="text-white mb-0">Jan - March 2019</p>
                     </div>
                     <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
                 </div>
@@ -85,7 +82,6 @@
                     <h3 class="card-title text-white">Total Cabang</h3>
                     <div class="d-inline-block">
                         <h2 class="text-white">{{ number_format($cabang) }}</h2>
-                        <p class="text-white mb-0">Jan - March 2019</p>
                     </div>
                     <span class="float-right display-5 opacity-5"><i class="fa fa-sitemap"></i></span>
                 </div>

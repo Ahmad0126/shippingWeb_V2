@@ -8,6 +8,7 @@ use App\Http\Controllers\Logins;
 use App\Http\Controllers\Pengiriman;
 use App\Http\Controllers\Pickup;
 use App\Http\Controllers\Sorting;
+use App\Http\Controllers\Transaksi;
 use App\Http\Controllers\User;
 use App\Http\Controllers\Warehouse;
 use Illuminate\Support\Facades\Route;
@@ -52,11 +53,13 @@ Route::middleware(['auth'])->group(function (){
     });
         
     Route::middleware(['can:kasir'])->group(function(){
+        Route::get('/transaksi', [Transaksi::class, 'show'])->name('transaksi');
+        Route::get('/transaksi/detail', [Transaksi::class, 'detail'])->name('transaksi_detail');
+
         Route::get('/pengiriman', [Pengiriman::class, 'show'])->name('pengiriman');
         Route::get('/pengiriman/daftar', [Pengiriman::class, 'daftar'])->name('pengiriman_daftar');
         Route::get('/pengiriman/detail', [Pengiriman::class, 'detail'])->name('pengiriman_detail');
         Route::get('/pengiriman/checkout', [Pengiriman::class, 'checkout'])->name('pengiriman_checkout');
-        Route::get('/pengiriman/nota', [Pengiriman::class, 'nota'])->name('pengiriman_nota');
         Route::get('/pengiriman/cetaknota', [Pengiriman::class, 'cetaknota'])->name('pengiriman_cetaknota');
         Route::post('pengiriman/tambah', [Pengiriman::class, 'store'])->name('tambah_pengiriman');
         Route::post('pengiriman/proses', [Pengiriman::class, 'proses'])->name('pengiriman_proses');

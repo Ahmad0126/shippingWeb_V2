@@ -20,16 +20,17 @@ class Pengiriman extends Controller
         return view('pengiriman', $data);
     }
     public function detail(Request $req){
+        if($req->p == null){
+            abort(404);
+        }
         $data['title'] = 'Detail Pengiriman';
         $data['pengiriman'] = ModelPengiriman::where('kode_pengiriman', $req->p)->get()->first();
         return view('pengiriman_detail', $data);
     }
-    public function nota(Request $req){
-        $data['title'] = 'Detail Transaksi';
-        $data['nota'] = Nota::where('no_nota', $req->p)->get()->first();
-        return view('pengiriman_nota', $data);
-    }
     public function cetaknota(Request $req){
+        if($req->p == null){
+            abort(404);
+        }
         $data['pengiriman'] = ModelPengiriman::where('kode_pengiriman', $req->p)->get()->first();
         return view('cetak_nota', $data);
     }
@@ -110,8 +111,11 @@ class Pengiriman extends Controller
         return redirect()->route('pengiriman_daftar')->with('notif', 'Berhasil menambahkan pengiriman');
     }
     public function checkout(Request $req){
+        if(!Gate::allows('kantor', 'Office')){
+            return redirect(route('base'))->withErrors(['err_kantor' => 'Masuk ke kantor Office dahulu!']);
+        }
         if($req->kode_pengiriman == null){
-            return redirect(route('pengiriman'))->withErrors(['err_pengiriman' => 'Tidak ada pengiriman yang dipilih!']);
+            abort(404);
         }
         $data['pengiriman'] = array();
 		$total = 0;

@@ -34,6 +34,11 @@
                     <i class="icon-paper-plane menu-icon"></i><span class="nav-text">Pengiriman</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('transaksi') }}" aria-expanded="false">
+                    <i class="icon-credit-card menu-icon"></i><span class="nav-text">Transaksi</span>
+                </a>
+            </li>
             @endcan
             @can('kurir')
             <li>

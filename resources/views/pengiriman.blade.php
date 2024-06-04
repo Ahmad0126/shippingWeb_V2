@@ -60,7 +60,7 @@
                                         <td>{{ $p->layanan->nama_layanan }}</td>
                                         <td>{{ strtoupper($p->histori->last()->status) }}</td>
                                         <td>
-                                            <a href="pengiriman/detail?p={{ $p->kode_pengiriman }}">
+                                            <a class="btn btn-sm btn-primary" href="pengiriman/detail?p={{ $p->kode_pengiriman }}">
                                                 Detail<i class="fa fa-arrow-up-right-from-square"></i>
                                             </a>
                                         </td>

@@ -48,74 +48,50 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-4 col-12 ms-auto">
+					<div class="col">
 						<table class="table table-clear">
 							<tbody>
 								<tr>
 									<td class="left">
 										<strong>Layanan</strong>
 									</td>
-									<td class="right">{{ $pengiriman->layanan->nama_layanan }}</td>
+									<td class="">{{ $pengiriman->layanan->nama_layanan }}</td>
+									<td>
+										<strong>Deskripsi:</strong>
+									</td>
+									<td><strong>Estimasi Tiba</strong></td>
+									<td class="right">{{ $pengiriman->estimasi }} hari</td>
 								</tr>
 								<tr>
 									<td class="left">
 										<strong>Tanggal Dikirim</strong>
 									</td>
-									<td class="right">{{ date('d-m-Y H:i',strtotime($pengiriman->detail->tanggal_dikirim)) }}</td>
+									<td>{{ date('d-m-Y H:i',strtotime($pengiriman->detail->tanggal_dikirim)) }}</td>
+									<td>{{ $pengiriman->detail->deskripsi }}</td>
+									<td><strong>Biaya</strong></td>
+									<td class="right">Rp @if($pengiriman->nota != null) {{ number_format($pengiriman->nota->ongkir) }} @endif</td>
 								</tr>
 								<tr>
 									<td class="left">
 										<strong>Berat</strong>
 									</td>
-									<td class="right">{{ $pengiriman->detail->berat }} gram</td>
+									<td>{{ $pengiriman->detail->berat }} gram</td>
+									<td>
+										<strong>Instruksi Khusus:</strong>
+									</td>
+									<td><strong>Pembayaran</strong></td>
+									<td class="right">@if($pengiriman->nota != null) {{ $pengiriman->nota->pembayaran }} @endif</td>
 								</tr>
 								<tr>
 									<td class="left">
 										<strong>Koli</strong>
 									</td>
-									<td class="right">
+									<td>
 										<strong>{{ $pengiriman->detail->koli }}</strong>
 									</td>
+									<td class="right">{{ $pengiriman->detail->instruksi_khusus }}</td>
 								</tr>
 							</tbody>
-						</table>
-					</div>
-					<div class="col-lg-4 col-12">
-						<table class="table table-clear">
-							<tbody>
-								<tr>
-									<td class="left">
-										<strong>Deskripsi:</strong>
-									</td>
-								</tr>
-								<tr>
-									<td>{{ $pengiriman->detail->deskripsi }}</td>
-								</tr>
-								<tr>
-									<td class="left">
-										<strong>Instruksi Khusus:</strong>
-									</td>
-								</tr>
-								<tr>
-									<td>{{ $pengiriman->detail->instruksi_khusus }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-lg-4 col-12">
-						<table class="table table-clear">
-							<tr>
-								<td><strong>Estimasi Tiba</strong></td>
-								<td>{{ $pengiriman->estimasi }} hari</td>
-							</tr>
-							<tr>
-								<td><strong>Biaya</strong></td>
-								<td>Rp @if($pengiriman->nota != null) {{ number_format($pengiriman->nota->ongkir) }} @endif</td>
-							</tr>
-							<tr>
-								<td><strong>Pembayaran</strong></td>
-								<td>@if($pengiriman->nota != null) {{ $pengiriman->nota->pembayaran }} @endif</td>
-							</tr>
 						</table>
 					</div>
 				</div>

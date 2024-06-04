@@ -127,7 +127,7 @@
 							</tr>
 							<tr>
 								<td><strong>Nota Terkait</strong></td>
-								<td>@if($pengiriman->nota != null) <a href="{{ route('pengiriman_nota') }}?p={{ $pengiriman->nota->no_nota }}"> {{ $pengiriman->nota->no_nota }} @endif</a></td>
+								<td>@if($pengiriman->nota != null) <a href="{{ route('transaksi_detail') }}?p={{ $pengiriman->nota->no_nota }}"> {{ $pengiriman->nota->no_nota }} @endif</a></td>
 							</tr>
 						</table>
 					</div>

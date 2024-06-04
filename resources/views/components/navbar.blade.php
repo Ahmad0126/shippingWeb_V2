@@ -47,7 +47,7 @@
                                     <a href="{{ route('login_kantor') }}"><i class="icon-user"></i> <span>Masuk Kantor</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('password') }}"><i class="icon-key"></i> <span>Ganti Password</span></a>
+                                    <a href="{{ route('password') }}"><i class="icon-settings"></i> <span>Ganti Password</span></a>
                                 </li>
                                 <hr class="my-2">
                                 <li>
