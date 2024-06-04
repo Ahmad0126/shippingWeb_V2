@@ -31,8 +31,7 @@ class Pengiriman extends Controller
             abort(404);
         }
         $data['pengiriman'] = ModelPengiriman::where('kode_pengiriman', $req->p)->get()->first();
-        $pdf = Pdf::loadView('cetak_nota', $data);
-        return $pdf->stream();
+        return view('cetak_nota', $data);
     }
     public function daftar(){
         if(!Gate::allows('kantor', 'Office')){
