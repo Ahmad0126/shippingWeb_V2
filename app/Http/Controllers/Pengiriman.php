@@ -9,7 +9,6 @@ use App\Models\DetailPengiriman;
 use App\Models\Nota;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Pengiriman as ModelPengiriman;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class Pengiriman extends Controller
 {
