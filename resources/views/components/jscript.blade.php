@@ -203,7 +203,7 @@
     });
     $('.terima-btn').on("click", function () {
         $('#global_form').append('<input type="hidden" name="kode" value="'+$(this).data('kode')+'">');
-        $('#global_form').attr('action', base_url + '/' + obj + '/' + 'pick');
+        $('#global_form').attr('action', base_url + '/' + $(this).data('obj') + '/' + 'pick');
         $('#global_form').submit();
         
     });

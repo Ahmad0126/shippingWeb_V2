@@ -36,7 +36,7 @@ class Sorting extends Controller
         foreach($fw as $f){
             $data['forwarded'][$n++] = Pengiriman::find($f->id_pengiriman);;
         }
-        return view('barang', $data);
+        return view('forwarded', $data);
     }
     public function pick(Request $req){
         $p = Pengiriman::where('kode_pengiriman', $req->kode)->get()->first();

@@ -42,7 +42,7 @@
                                         <td>{{ $f->detail->nama_penerima }}</td>
                                         <td>{{ $f->alamat_tujuan }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-primary terima-btn" data-kode="{{ $f->kode_pengiriman }}">
+                                            <button class="btn btn-sm btn-primary terima-btn" data-kode="{{ $f->kode_pengiriman }}" data-obj="{{ $url }}">
                                                 Terima
                                             </button>
                                         </td>
